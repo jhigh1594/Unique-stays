@@ -1,7 +1,21 @@
+/* ============================================================
+   UNIQUE STAYS USA — Design System
+   Theme: "The Wanderer's Postcard Collection"
+   Design Movement: Mid-century modernism meets contemporary travel editorial
+   
+   Core Principles:
+   - Warm off-white + terracotta + forest green + sky blue palette
+   - Fraunces editorial serif for headlines, Plus Jakarta Sans for body
+   - Asymmetric editorial layouts with postcard/collage metaphor
+   - Whimsical but sophisticated — warmth through composition
+   ============================================================ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Google Fonts imported in index.html */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -40,86 +54,96 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand Colors */
+  --color-cream: oklch(0.975 0.012 85);
+  --color-cream-dark: oklch(0.945 0.018 80);
+  --color-terracotta: oklch(0.55 0.14 38);
+  --color-terracotta-light: oklch(0.72 0.10 40);
+  --color-forest: oklch(0.38 0.09 155);
+  --color-forest-light: oklch(0.52 0.08 155);
+  --color-sky: oklch(0.56 0.09 220);
+  --color-sand: oklch(0.88 0.04 75);
+  --color-charcoal: oklch(0.22 0.01 60);
+  --color-warm-white: oklch(0.99 0.005 85);
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  /* Unique Stays USA Color Palette */
+  --radius: 0.5rem;
+  
+  /* Warm cream background */
+  --background: oklch(0.975 0.012 85);
+  --foreground: oklch(0.22 0.01 60);
+  
+  /* Card: slightly warmer cream */
+  --card: oklch(0.99 0.005 85);
+  --card-foreground: oklch(0.22 0.01 60);
+  
+  --popover: oklch(0.99 0.005 85);
+  --popover-foreground: oklch(0.22 0.01 60);
+  
+  /* Primary: Terracotta */
+  --primary: oklch(0.55 0.14 38);
+  --primary-foreground: oklch(0.99 0.005 85);
+  
+  /* Secondary: Forest Green */
+  --secondary: oklch(0.38 0.09 155);
+  --secondary-foreground: oklch(0.99 0.005 85);
+  
+  /* Muted: Warm sand */
+  --muted: oklch(0.93 0.025 75);
+  --muted-foreground: oklch(0.50 0.03 60);
+  
+  /* Accent: Sky Blue */
+  --accent: oklch(0.92 0.03 220);
+  --accent-foreground: oklch(0.30 0.08 220);
+  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
-
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  
+  --border: oklch(0.88 0.025 75);
+  --input: oklch(0.88 0.025 75);
+  --ring: oklch(0.55 0.14 38);
+  
+  /* Charts */
+  --chart-1: oklch(0.55 0.14 38);
+  --chart-2: oklch(0.38 0.09 155);
+  --chart-3: oklch(0.56 0.09 220);
+  --chart-4: oklch(0.72 0.10 40);
+  --chart-5: oklch(0.52 0.08 155);
+  
+  /* Sidebar */
+  --sidebar: oklch(0.99 0.005 85);
+  --sidebar-foreground: oklch(0.22 0.01 60);
+  --sidebar-primary: oklch(0.55 0.14 38);
+  --sidebar-primary-foreground: oklch(0.99 0.005 85);
+  --sidebar-accent: oklch(0.93 0.025 75);
+  --sidebar-accent-foreground: oklch(0.22 0.01 60);
+  --sidebar-border: oklch(0.88 0.025 75);
+  --sidebar-ring: oklch(0.55 0.14 38);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fraunces', serif;
+  }
+  
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -134,24 +158,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -162,16 +173,193 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1320px;
     }
   }
+
+  /* ── Typography Utilities ── */
+  .font-display {
+    font-family: 'Fraunces', serif;
+  }
+
+  .font-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* ── Card Hover Effect ── */
+  .stay-card {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  }
+  .stay-card:hover {
+    transform: translateY(-6px) rotate(0.3deg);
+    box-shadow: 0 20px 60px -10px rgba(44, 30, 20, 0.18);
+  }
+
+  /* ── Polaroid Card ── */
+  .polaroid {
+    background: white;
+    padding: 12px 12px 40px 12px;
+    box-shadow: 0 4px 20px rgba(44, 30, 20, 0.12), 0 1px 4px rgba(44, 30, 20, 0.08);
+  }
+
+  /* ── Stamp Badge ── */
+  .stamp-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* ── Decorative Divider ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.2;
+  }
+
+  /* ── Grain Texture Overlay ── */
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* ── Scroll Animation ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Category Pill ── */
+  .category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .category-pill:hover {
+    transform: translateY(-1px);
+  }
+  .category-pill.active {
+    background: oklch(0.55 0.14 38);
+    color: oklch(0.99 0.005 85);
+  }
+  .category-pill.inactive {
+    background: oklch(0.99 0.005 85);
+    color: oklch(0.40 0.03 60);
+    border: 1.5px solid oklch(0.88 0.025 75);
+  }
+  .category-pill.inactive:hover {
+    border-color: oklch(0.55 0.14 38);
+    color: oklch(0.55 0.14 38);
+  }
+
+  /* ── Platform Badge ── */
+  .platform-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .platform-airbnb {
+    background: #FFE4DE;
+    color: #FF5A5F;
+  }
+  .platform-vrbo {
+    background: #E0F0FF;
+    color: #1B5E9E;
+  }
+  .platform-wander {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+  .platform-direct {
+    background: oklch(0.93 0.025 75);
+    color: oklch(0.40 0.03 60);
+  }
+
+  /* ── Hero Gradient Overlay ── */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 10, 5, 0.15) 0%,
+      rgba(15, 10, 5, 0.05) 30%,
+      rgba(15, 10, 5, 0.0) 60%,
+      rgba(15, 10, 5, 0.35) 100%
+    );
+  }
+
+  /* ── Wavy Section Divider ── */
+  .wave-divider {
+    overflow: hidden;
+    line-height: 0;
+  }
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.975 0.012 85);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.72 0.10 40);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.55 0.14 38);
+}
+
+/* ── Selection Color ── */
+::selection {
+  background: oklch(0.72 0.10 40 / 0.3);
+  color: oklch(0.22 0.01 60);
 }
