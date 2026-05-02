@@ -11,7 +11,7 @@ import { ArrowRight, ChevronRight, Search, Sparkles, MapPin } from 'lucide-react
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StayCard from '@/components/StayCard';
-import { STAYS, CATEGORIES } from '@/lib/stays-data';
+import { STAYS, CATEGORIES, SPOKES } from '@/lib/stays-data';
 
 // ── Scroll animation hook ──────────────────────────────────
 function useScrollReveal() {
@@ -525,7 +525,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MORE STAYS GRID ───────────────────────────────── */}
+      {/* ── HUB & SPOKE COLLECTIONS ─────────────── */}
+      <SpokeHubSection />
+
+      {/* ── MORE STAYS GRID ──────────────────── */}
       <section className="py-20">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 fade-up">
@@ -868,5 +871,145 @@ export default function Home() {
         }
       `}</style>
     </div>
+  );
+}
+
+// ── Hub & Spoke Collections Section ───────────────────────────
+function SpokeHubSection() {
+  return (
+    <section
+      className="py-20"
+      style={{ background: 'oklch(0.22 0.01 60)' }}
+    >
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-14 fade-up">
+          <p
+            className="text-xs font-bold uppercase tracking-widest mb-3"
+            style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          >
+            ✦ Five Ways to Find Your Stay
+          </p>
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
+          >
+            Browse Our
+            <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}> Collections</span>
+          </h2>
+          <p
+            className="text-base max-w-xl mx-auto"
+            style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          >
+            One directory. Five ways to find exactly what you're looking for. Each collection is curated, verified, and linked to the best booking platforms.
+          </p>
+        </div>
+
+        {/* Spoke Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          {SPOKES.map((spoke, i) => (
+            <Link key={spoke.slug} href={`/${spoke.slug}`}>
+              <div
+                className="fade-up group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                style={{
+                  transitionDelay: `${i * 80}ms`,
+                  border: '1px solid oklch(0.99 0.005 85 / 0.1)',
+                }}
+              >
+                {/* Background image */}
+                <div className="relative h-52 overflow-hidden">
+                  <img
+                    src={spoke.heroImage}
+                    alt={spoke.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(to top, oklch(0.12 0.02 60 / 0.95) 0%, oklch(0.12 0.02 60 / 0.4) 60%, transparent 100%)`,
+                    }}
+                  />
+                  {/* Emoji badge */}
+                  <div
+                    className="absolute top-3 left-3 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                    style={{ background: 'oklch(0.99 0.005 85 / 0.15)', backdropFilter: 'blur(8px)' }}
+                  >
+                    {spoke.heroEmoji}
+                  </div>
+                  {/* Domain redirect badge */}
+                  <div
+                    className="absolute top-3 right-3 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                    style={{
+                      background: 'oklch(0.99 0.005 85 / 0.12)',
+                      color: 'oklch(0.85 0.01 85)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1px solid oklch(0.99 0.005 85 / 0.2)',
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    }}
+                  >
+                    {spoke.externalDomain.split('.')[0]}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div
+                  className="p-4"
+                  style={{ background: 'oklch(0.18 0.01 60)' }}
+                >
+                  <h3
+                    className="font-bold mb-1 text-base"
+                    style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
+                  >
+                    {spoke.title}
+                  </h3>
+                  <p
+                    className="text-xs leading-snug mb-3"
+                    style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  >
+                    {spoke.tagline}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-3">
+                      {spoke.stats.slice(0, 2).map((stat, j) => (
+                        <div key={j}>
+                          <div
+                            className="text-sm font-bold"
+                            style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}
+                          >
+                            {stat.value}
+                          </div>
+                          <div
+                            className="text-[10px]"
+                            style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                          >
+                            {stat.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div
+                      className="flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all"
+                      style={{ color: spoke.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    >
+                      Explore <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Bottom note about redirects */}
+        <div className="text-center mt-10 fade-up">
+          <p
+            className="text-xs"
+            style={{ color: 'oklch(0.40 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          >
+            workfriendlystays.com · stayswithpets.com · rvreadystays.com · evreadystays.com — all redirect here
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }

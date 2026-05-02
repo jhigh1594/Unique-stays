@@ -1,17 +1,20 @@
 // ============================================================
 // Navbar — Unique Stays USA
 // Design: Wanderer's Postcard Collection
-// Thin, editorial nav with terracotta wordmark and minimal links
+// Hub & Spoke nav with mega-dropdown for the 5 collections
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Menu, X, Compass } from 'lucide-react';
+import { Menu, X, Compass, ChevronDown } from 'lucide-react';
+import { SPOKES } from '@/lib/stays-data';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [location] = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -19,10 +22,23 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setCollectionsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const isOnSpoke = SPOKES.some((s) => location === `/${s.slug}`);
+
   const navLinks = [
-    { href: '/', label: 'Discover' },
-    { href: '/directory', label: 'Directory' },
+    { href: '/directory', label: 'Full Directory' },
     { href: '/about', label: 'About' },
+    { href: '/submit', label: 'Submit a Stay' },
   ];
 
   return (
@@ -36,6 +52,7 @@ export default function Navbar() {
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
+
             {/* Logo / Wordmark */}
             <Link href="/">
               <div className="flex items-center gap-2.5 group">
@@ -44,14 +61,25 @@ export default function Navbar() {
                 </div>
                 <div className="flex flex-col leading-none">
                   <span
-                    className="text-[oklch(0.55_0.14_38)] font-bold tracking-tight text-sm"
-                    style={{ fontFamily: 'Fraunces, serif', fontSize: '1.1rem', letterSpacing: '-0.01em' }}
+                    className="font-bold tracking-tight"
+                    style={{
+                      fontFamily: 'Fraunces, serif',
+                      fontSize: '1.1rem',
+                      letterSpacing: '-0.01em',
+                      color: scrolled || !['/', ...SPOKES.map(s => `/${s.slug}`)].includes(location)
+                        ? 'oklch(0.55 0.14 38)'
+                        : 'oklch(0.99 0.005 85)',
+                    }}
                   >
                     Unique Stays
                   </span>
                   <span
-                    className="text-[oklch(0.38_0.09_155)] font-semibold tracking-[0.15em] uppercase"
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.55rem' }}
+                    className="font-semibold tracking-[0.15em] uppercase"
+                    style={{
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                      fontSize: '0.55rem',
+                      color: 'oklch(0.38 0.09 155)',
+                    }}
                   >
                     USA
                   </span>
@@ -59,17 +87,111 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Nav Links */}
-            <nav className="hidden md:flex items-center gap-8">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-6">
+              {/* Collections Dropdown */}
+              <div ref={dropdownRef} className="relative">
+                <button
+                  className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-200 ${
+                    isOnSpoke
+                      ? 'text-[oklch(0.55_0.14_38)]'
+                      : scrolled
+                        ? 'text-[oklch(0.40_0.03_60)] hover:text-[oklch(0.55_0.14_38)]'
+                        : 'text-[oklch(0.90_0.01_85)] hover:text-white'
+                  }`}
+                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  onClick={() => setCollectionsOpen(!collectionsOpen)}
+                >
+                  Collections
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${collectionsOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {/* Mega Dropdown */}
+                {collectionsOpen && (
+                  <div
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[520px] rounded-2xl shadow-2xl overflow-hidden"
+                    style={{
+                      background: 'oklch(0.99 0.005 85)',
+                      border: '1.5px solid oklch(0.88 0.025 75)',
+                    }}
+                  >
+                    <div className="p-4">
+                      <p
+                        className="text-xs font-bold uppercase tracking-widest mb-3 px-2"
+                        style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        Browse by Collection
+                      </p>
+                      <div className="grid grid-cols-1 gap-1">
+                        {SPOKES.map((spoke) => (
+                          <Link key={spoke.slug} href={`/${spoke.slug}`}>
+                            <div
+                              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[oklch(0.97_0.012_85)] transition-colors group cursor-pointer"
+                              onClick={() => setCollectionsOpen(false)}
+                            >
+                              <div
+                                className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                                style={{ background: spoke.accentColorLight }}
+                              >
+                                {spoke.heroEmoji}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div
+                                  className="text-sm font-semibold"
+                                  style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                                >
+                                  {spoke.title}
+                                </div>
+                                <div
+                                  className="text-xs truncate"
+                                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                                >
+                                  {spoke.tagline}
+                                </div>
+                              </div>
+                              <div
+                                className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
+                                style={{ color: spoke.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                              >
+                                Explore →
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                    <div
+                      className="px-4 py-3 border-t border-[oklch(0.88_0.025_75)]"
+                      style={{ background: 'oklch(0.975 0.012 85)' }}
+                    >
+                      <Link href="/directory">
+                        <div
+                          className="flex items-center justify-between text-sm font-semibold cursor-pointer hover:opacity-80 transition-opacity"
+                          style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                          onClick={() => setCollectionsOpen(false)}
+                        >
+                          <span>View Full Directory (All Stays)</span>
+                          <span>→</span>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
                   <span
                     className={`text-sm font-medium transition-colors duration-200 relative group ${
                       location === link.href
                         ? 'text-[oklch(0.55_0.14_38)]'
-                        : 'text-[oklch(0.40_0.03_60)] hover:text-[oklch(0.55_0.14_38)]'
+                        : scrolled
+                          ? 'text-[oklch(0.40_0.03_60)] hover:text-[oklch(0.55_0.14_38)]'
+                          : 'text-[oklch(0.90_0.01_85)] hover:text-white'
                     }`}
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', letterSpacing: '0.01em' }}
+                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     {link.label}
                     <span
@@ -92,7 +214,11 @@ export default function Navbar() {
                 Get Picks
               </a>
               <button
-                className="md:hidden p-2 rounded-lg text-[oklch(0.40_0.03_60)] hover:bg-[oklch(0.93_0.025_75)] transition-colors"
+                className={`md:hidden p-2 rounded-lg transition-colors ${
+                  scrolled
+                    ? 'text-[oklch(0.40_0.03_60)] hover:bg-[oklch(0.93_0.025_75)]'
+                    : 'text-white hover:bg-white/10'
+                }`}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
               >
@@ -107,15 +233,57 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div
-            className="absolute inset-0 bg-[oklch(0.22_0.01_60/0.4)]"
+            className="absolute inset-0 bg-[oklch(0.22_0.01_60/0.5)]"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute top-0 right-0 bottom-0 w-72 bg-[oklch(0.975_0.012_85)] shadow-2xl flex flex-col pt-20 px-6 pb-8">
-            <nav className="flex flex-col gap-1">
-              {navLinks.map((link) => (
+          <div
+            className="absolute top-0 right-0 bottom-0 w-80 shadow-2xl flex flex-col pt-20 pb-8 overflow-y-auto"
+            style={{ background: 'oklch(0.975 0.012 85)' }}
+          >
+            {/* Collections */}
+            <div className="px-4 mb-4">
+              <p
+                className="text-xs font-bold uppercase tracking-widest mb-2 px-2"
+                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              >
+                Collections
+              </p>
+              {SPOKES.map((spoke) => (
+                <Link key={spoke.slug} href={`/${spoke.slug}`}>
+                  <div
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[oklch(0.93_0.025_75)] transition-colors cursor-pointer"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <span className="text-xl">{spoke.heroEmoji}</span>
+                    <div>
+                      <div
+                        className="text-sm font-semibold"
+                        style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        {spoke.title}
+                      </div>
+                      <div
+                        className="text-xs"
+                        style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        {spoke.tagline}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div
+              className="h-px mx-4 mb-4"
+              style={{ background: 'oklch(0.88 0.025 75)' }}
+            />
+
+            <nav className="flex flex-col gap-1 px-4">
+              {[{ href: '/', label: 'Home' }, ...navLinks].map((link) => (
                 <Link key={link.href} href={link.href}>
                   <span
-                    className="block py-3 px-4 rounded-xl text-base font-medium text-[oklch(0.30_0.02_60)] hover:bg-[oklch(0.93_0.025_75)] hover:text-[oklch(0.55_0.14_38)] transition-all"
+                    className="block py-2.5 px-3 rounded-xl text-sm font-medium text-[oklch(0.30_0.02_60)] hover:bg-[oklch(0.93_0.025_75)] hover:text-[oklch(0.55_0.14_38)] transition-all"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                     onClick={() => setMobileOpen(false)}
                   >
@@ -124,7 +292,8 @@ export default function Navbar() {
                 </Link>
               ))}
             </nav>
-            <div className="mt-auto">
+
+            <div className="mt-auto px-4">
               <a
                 href="#newsletter"
                 className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold bg-[oklch(0.55_0.14_38)] text-[oklch(0.99_0.005_85)] hover:bg-[oklch(0.48_0.14_38)] transition-all"

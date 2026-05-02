@@ -11,6 +11,7 @@ interface StayCardProps {
   stay: Stay;
   featured?: boolean;
   style?: React.CSSProperties;
+  accentColor?: string;
 }
 
 const PLATFORM_STYLES: Record<string, { bg: string; text: string; label: string }> = {
@@ -20,7 +21,8 @@ const PLATFORM_STYLES: Record<string, { bg: string; text: string; label: string 
   Direct: { bg: 'oklch(0.93 0.025 75)', text: 'oklch(0.40 0.03 60)', label: 'Direct' },
 };
 
-export default function StayCard({ stay, featured = false, style }: StayCardProps) {
+export default function StayCard({ stay, featured = false, style, accentColor }: StayCardProps) {
+  void accentColor; // available for future use
   const platform = PLATFORM_STYLES[stay.platform] || PLATFORM_STYLES.Direct;
 
   return (

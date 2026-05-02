@@ -6,6 +6,7 @@
 
 import { Compass, Instagram, Mail } from 'lucide-react';
 import { Link } from 'wouter';
+import { SPOKES } from '@/lib/stays-data';
 
 export default function Footer() {
   return (
@@ -14,7 +15,7 @@ export default function Footer() {
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div>
             <div className="flex items-center gap-2.5 mb-5">
               <div className="w-9 h-9 rounded-full bg-[oklch(0.55_0.14_38)] flex items-center justify-center">
                 <Compass className="w-5 h-5 text-[oklch(0.99_0.005_85)]" strokeWidth={2} />
@@ -62,6 +63,31 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Collections Column */}
+          <div>
+            <h4
+              className="text-sm font-bold uppercase tracking-widest mb-5"
+              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            >
+              Collections
+            </h4>
+            <ul className="space-y-3">
+              {SPOKES.map((spoke) => (
+                <li key={spoke.slug}>
+                  <Link href={`/${spoke.slug}`}>
+                    <span
+                      className="flex items-center gap-2 text-sm transition-colors hover:text-[oklch(0.72_0.10_40)]"
+                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    >
+                      <span>{spoke.heroEmoji}</span>
+                      <span>{spoke.title}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Explore Column */}
           <div>
             <h4
@@ -93,7 +119,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Info Column */}
+          {/* Info Column — shrink brand col to make room */}
           <div>
             <h4
               className="text-sm font-bold uppercase tracking-widest mb-5"
