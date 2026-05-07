@@ -51,7 +51,8 @@ export default function StayCard({ stay, featured = false, style, accentColor, i
           '--card-tilt': `${tilt}deg`,
           padding: '9px 9px 36px 9px',
           borderRadius: '3px',
-          background: 'white',
+          /* Warm cream — not white. White is a screen. Cream is paper. */
+          background: 'oklch(0.975 0.018 80)',
           backgroundImage: MAT_GRAIN,
           boxShadow: `${shadowX}px 5px 14px rgba(44, 30, 20, 0.16), ${shadowX * 1.5}px 18px 44px -6px rgba(44, 30, 20, 0.20)`,
         } as React.CSSProperties}
@@ -131,8 +132,25 @@ export default function StayCard({ stay, featured = false, style, accentColor, i
           </div>
         </div>
 
-        {/* Caption zone — grained white mat area below photo */}
-        <div className="polaroid-caption pt-3 px-1">
+        {/* Caption zone — cream paper, ruled lines, postmark */}
+        <div className="polaroid-caption relative pt-3 px-1">
+          {/* Faded postmark — cancellation stamp, reads as aged paper not UI */}
+          <div
+            className="absolute bottom-1 right-1 pointer-events-none select-none"
+            style={{ opacity: 0.07, color: 'oklch(0.30 0.06 50)' }}
+            aria-hidden="true"
+          >
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="32" cy="32" r="23" stroke="currentColor" strokeWidth="1"/>
+              {/* Cancellation wavy lines */}
+              <path d="M4 24 Q13 19 22 24 Q31 29 40 24 Q49 19 58 24" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+              <path d="M4 32 Q13 27 22 32 Q31 37 40 32 Q49 27 58 32" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+              <path d="M4 40 Q13 35 22 40 Q31 45 40 40 Q49 35 58 40" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+            </svg>
+          </div>
+          {/* Content sits above grain overlay */}
+          <div className="relative" style={{ zIndex: 1 }}>
           {/* Category + Rating row */}
           <div className="flex items-center justify-between mb-1.5">
             <span
@@ -223,6 +241,7 @@ export default function StayCard({ stay, featured = false, style, accentColor, i
               <ExternalLink className="w-2.5 h-2.5" />
             </span>
           </div>
+          </div>{/* end content z-layer */}
         </div>
       </div>
     </a>
