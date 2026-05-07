@@ -211,7 +211,7 @@ export default function Navbar() {
                 className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[oklch(0.55_0.14_38)] text-[oklch(0.99_0.005_85)] hover:bg-[oklch(0.48_0.14_38)] transition-all duration-200 hover:shadow-md"
                 style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Get Picks
+                Get Weekly Picks
               </a>
               <button
                 className={`md:hidden p-2 rounded-lg transition-colors ${

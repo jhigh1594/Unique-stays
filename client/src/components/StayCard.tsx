@@ -173,7 +173,7 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
               className="inline-flex items-center gap-1 text-xs font-bold group-hover:gap-2 transition-all uppercase tracking-wider"
               style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem' }}
             >
-              View Stay
+              See This Place
               <ExternalLink className="w-2.5 h-2.5" />
             </span>
           </div>

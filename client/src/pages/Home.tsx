@@ -123,7 +123,7 @@ export default function Home() {
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
                 >
-                  Explore
+                  Find It
                 </button>
               </Link>
             </div>
@@ -227,37 +227,54 @@ export default function Home() {
       {/* ── FEATURED STAYS ────────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 fade-up">
-            <div>
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-2"
-                style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                ✦ This Week's Favorites
-              </p>
-              <h2
-                className="text-4xl md:text-5xl font-bold leading-tight"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
-              >
-                Featured
-                <br />
-                <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}>Extraordinary</span> Stays
-              </h2>
-            </div>
-            <Link href="/directory">
-              <button
-                className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+          {/* Section Header — magazine department number format */}
+          <div className="flex items-stretch gap-6 mb-12 fade-up">
+            {/* Section number */}
+            <div className="flex-shrink-0 flex items-center">
+              <span
+                className="font-bold leading-none select-none"
                 style={{
-                  borderRadius: '2px',
-                  borderColor: 'oklch(0.55 0.14 38)',
-                  color: 'oklch(0.55 0.14 38)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily: 'Fraunces, serif',
+                  fontSize: 'clamp(5rem, 10vw, 8rem)',
+                  color: 'oklch(0.88 0.025 75)',
+                  lineHeight: 1,
                 }}
               >
-                View All Stays <ArrowRight className="w-4 h-4" />
-              </button>
-            </Link>
+                01
+              </span>
+            </div>
+            {/* Vertical rule */}
+            <div className="w-px self-stretch" style={{ background: 'oklch(0.88 0.025 75)' }} />
+            {/* Title + description + CTA */}
+            <div className="flex flex-col justify-between py-1 flex-1">
+              <div>
+                <h2
+                  className="text-4xl md:text-5xl font-bold leading-tight mb-2"
+                  style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                >
+                  This Week's Stays
+                </h2>
+                <p
+                  className="text-sm"
+                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                >
+                  The places we can't stop thinking about.
+                </p>
+              </div>
+              <Link href="/directory">
+                <button
+                  className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 border-2 text-sm font-semibold transition-all self-start hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+                  style={{
+                    borderRadius: '2px',
+                    borderColor: 'oklch(0.55 0.14 38)',
+                    color: 'oklch(0.55 0.14 38)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}
+                >
+                  Browse Everything <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+            </div>
           </div>
 
           {/* Featured Grid — asymmetric layout */}
@@ -343,7 +360,7 @@ export default function Home() {
                             fontFamily: 'Plus Jakarta Sans, sans-serif',
                           }}
                         >
-                          Book Now <ArrowRight className="w-4 h-4" />
+                          Take Me There <ArrowRight className="w-4 h-4" />
                         </span>
                       </div>
                     </div>
@@ -721,35 +738,26 @@ export default function Home() {
           style={{ background: 'oklch(0.85 0.10 45)' }}
         />
 
-        <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 text-center">
+        <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6">
           <div className="fade-up">
-            <div className="text-4xl mb-5">✉️</div>
-            <p
-              className="text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-            >
-              The Weekly Wanderer
-            </p>
             <h2
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
+              className="text-5xl md:text-6xl font-bold mb-4 text-left"
+              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)', lineHeight: 1.05 }}
             >
-              Get the best stays
+              The Weekly
               <br />
-              <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>
-                in your inbox.
-              </span>
+              <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>Wanderer.</span>
             </h2>
             <p
-              className="text-base mb-8"
+              className="text-base mb-8 text-left"
               style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
-              Every week, we send 5 extraordinary stays you've never seen before. No spam. Just wanderlust.
+              New extraordinary stays in your inbox every Tuesday.
             </p>
 
             {/* Email Form */}
             <form
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              className="flex flex-col sm:flex-row gap-3"
               onSubmit={(e) => {
                 e.preventDefault();
                 const form = e.target as HTMLFormElement;
@@ -782,14 +790,14 @@ export default function Home() {
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
                 }}
               >
-                Subscribe Free
+                Send Me Picks
               </button>
             </form>
             <p
               className="text-xs mt-4"
               style={{ color: 'oklch(0.45 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
-              Join 12,000+ travelers. Unsubscribe anytime.
+              12,000+ subscribers. New picks every Tuesday. Bail anytime.
             </p>
           </div>
         </div>
@@ -800,15 +808,14 @@ export default function Home() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="fade-up">
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-3"
-                style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                Who We Are
-              </p>
               <h2
-                className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                className="font-bold mb-6"
+                style={{
+                  fontFamily: 'Fraunces, serif',
+                  color: 'oklch(0.22 0.01 60)',
+                  fontSize: 'clamp(2.8rem, 5vw, 4.5rem)',
+                  lineHeight: 1.05,
+                }}
               >
                 Built by travelers,
                 <br />
@@ -816,6 +823,18 @@ export default function Home() {
                   for dreamers.
                 </span>
               </h2>
+              <div className="mb-4">
+                <span
+                  className="stamp-badge"
+                  style={{
+                    color: 'oklch(0.55 0.14 38)',
+                    borderColor: 'oklch(0.55 0.14 38)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}
+                >
+                  Est. 2024
+                </span>
+              </div>
               <p
                 className="text-base leading-relaxed mb-6"
                 style={{ color: 'oklch(0.45 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
@@ -837,7 +856,7 @@ export default function Home() {
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
                 >
-                  Our Story <ArrowRight className="w-4 h-4" />
+                  How We Pick Them <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
             </div>
@@ -986,26 +1005,28 @@ function SpokeHubSection() {
       style={{ background: 'oklch(0.22 0.01 60)' }}
     >
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-14 fade-up">
+        {/* Header — centered stamp rule, no h2 */}
+        <div className="mb-12 fade-up">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex-1 h-px" style={{ background: 'oklch(0.99 0.005 85 / 0.12)' }} />
+            <span
+              className="stamp-badge"
+              style={{
+                color: 'oklch(0.72 0.10 40)',
+                borderColor: 'oklch(0.72 0.10 40)',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                padding: '5px 16px',
+              }}
+            >
+              Five Collections
+            </span>
+            <div className="flex-1 h-px" style={{ background: 'oklch(0.99 0.005 85 / 0.12)' }} />
+          </div>
           <p
-            className="text-xs font-bold uppercase tracking-widest mb-3"
-            style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            className="text-sm text-center max-w-lg mx-auto"
+            style={{ color: 'oklch(0.55 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
           >
-            ✦ Five Ways to Find Your Stay
-          </p>
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
-          >
-            Browse Our
-            <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}> Collections</span>
-          </h2>
-          <p
-            className="text-base max-w-xl mx-auto"
-            style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-          >
-            One directory. Five ways to find exactly what you're looking for. Each collection is curated, verified, and linked to the best booking platforms.
+            One directory. Five ways to find exactly what you're looking for.
           </p>
         </div>
 

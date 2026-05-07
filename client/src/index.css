@@ -295,6 +295,14 @@
     border-color: oklch(0.55 0.14 38);
     color: oklch(0.55 0.14 38);
   }
+  /* Square variant for filter panels */
+  .category-pill.stamp {
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 
   /* ── Platform Badge ── */
   .platform-badge {
