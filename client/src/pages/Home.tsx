@@ -373,7 +373,7 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               {featuredStays.slice(1, 3).map((stay, i) => (
                 <div key={stay.id} className="fade-up" style={{ transitionDelay: `${200 + i * 100}ms` }}>
-                  <StayCard stay={stay} />
+                  <StayCard stay={stay} index={i} />
                 </div>
               ))}
             </div>
@@ -471,7 +471,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {editorsPickStays.map((stay, i) => (
               <div key={stay.id} className="fade-up" style={{ transitionDelay: `${i * 100}ms` }}>
-                <StayCard stay={stay} />
+                <StayCard stay={stay} index={i + 2} />
               </div>
             ))}
           </div>
@@ -677,7 +677,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentStays.map((stay, i) => (
               <div key={stay.id} className="fade-up" style={{ transitionDelay: `${i * 80}ms` }}>
-                <StayCard stay={stay} />
+                <StayCard stay={stay} index={i + 5} />
               </div>
             ))}
           </div>

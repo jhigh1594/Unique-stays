@@ -381,7 +381,7 @@ export default function Directory() {
                   className="fade-up"
                   style={{ transitionDelay: `${Math.min(i * 50, 400)}ms` }}
                 >
-                  <StayCard stay={stay} />
+                  <StayCard stay={stay} index={i} />
                 </div>
               ))}
             </div>

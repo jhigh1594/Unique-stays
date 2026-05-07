@@ -1,7 +1,7 @@
 // ============================================================
 // StayCard — Unique Stays USA
 // Design: Wanderer's Postcard Collection
-// Polaroid-style card with platform badge, rating, and affiliate CTA
+// Polaroid-style card: tilt, mat grain, directional shadow, stamp tags
 // ============================================================
 
 import { Star, MapPin, Users, ExternalLink } from 'lucide-react';
@@ -12,6 +12,7 @@ interface StayCardProps {
   featured?: boolean;
   style?: React.CSSProperties;
   accentColor?: string;
+  index?: number;
 }
 
 const PLATFORM_STYLES: Record<string, { bg: string; text: string; label: string }> = {
@@ -21,9 +22,19 @@ const PLATFORM_STYLES: Record<string, { bg: string; text: string; label: string 
   Direct: { bg: 'oklch(0.93 0.025 75)', text: 'oklch(0.40 0.03 60)', label: 'Direct' },
 };
 
-export default function StayCard({ stay, featured = false, style, accentColor }: StayCardProps) {
-  void accentColor; // available for future use
+// Organic-feeling tilts — not perfectly alternating
+const TILTS = [-1.5, 1.2, -0.8, 1.8, -1.1, 0.7, -1.9, 1.4, -0.6, 2.0, -1.3, 0.9];
+
+// SVG noise for photo-paper grain on the white mat
+const MAT_GRAIN = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E")`;
+
+export default function StayCard({ stay, featured = false, style, accentColor, index = 0 }: StayCardProps) {
+  void accentColor;
   const platform = PLATFORM_STYLES[stay.platform] || PLATFORM_STYLES.Direct;
+
+  const tilt = TILTS[index % TILTS.length];
+  // Shadow shifts in the direction of lean — feels like a photo resting on a surface
+  const shadowX = tilt > 0 ? 3 : -3;
 
   return (
     <a
@@ -33,17 +44,23 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
       className="group block"
       style={style}
     >
-      {/* Polaroid frame — white mat, square-ish corners, thick bottom */}
+      {/* Polaroid frame — grained white mat, square corners, directional shadow */}
       <div
-        className="stay-card bg-white"
+        className="stay-card"
         style={{
-          padding: '9px 9px 32px 9px',
+          '--card-tilt': `${tilt}deg`,
+          padding: '9px 9px 36px 9px',
           borderRadius: '3px',
-          boxShadow: '0 6px 28px -4px rgba(44, 30, 20, 0.22), 0 2px 8px rgba(44, 30, 20, 0.09)',
-        }}
+          background: 'white',
+          backgroundImage: MAT_GRAIN,
+          boxShadow: `${shadowX}px 5px 14px rgba(44, 30, 20, 0.16), ${shadowX * 1.5}px 18px 44px -6px rgba(44, 30, 20, 0.20)`,
+        } as React.CSSProperties}
       >
         {/* Photo */}
-        <div className={`relative overflow-hidden ${featured ? 'h-64' : 'h-52'}`} style={{ borderRadius: '1px' }}>
+        <div
+          className={`relative overflow-hidden ${featured ? 'h-64' : 'h-52'}`}
+          style={{ borderRadius: '1px' }}
+        >
           <img
             src={stay.image}
             alt={stay.title}
@@ -52,7 +69,7 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-          {/* Top badges */}
+          {/* Top-left badges */}
           <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
             {stay.editorsPick && (
               <span
@@ -98,7 +115,7 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
             </span>
           </div>
 
-          {/* Price bottom right */}
+          {/* Price */}
           <div className="absolute bottom-3 right-3">
             <span
               className="px-2.5 py-1 text-sm font-bold text-white"
@@ -114,8 +131,9 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
           </div>
         </div>
 
-        {/* Caption zone — lives inside the polaroid white mat */}
-        <div className="pt-3 px-1">
+        {/* Caption zone — grained white mat area below photo */}
+        <div className="polaroid-caption pt-3 px-1">
+          {/* Category + Rating row */}
           <div className="flex items-center justify-between mb-1.5">
             <span
               className="text-xs font-semibold uppercase tracking-widest"
@@ -140,6 +158,7 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
             </div>
           </div>
 
+          {/* Title */}
           <h3
             className={`font-bold leading-tight mb-1 group-hover:text-[oklch(0.55_0.14_38)] transition-colors ${
               featured ? 'text-xl' : 'text-base'
@@ -149,7 +168,8 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
             {stay.title}
           </h3>
 
-          <div className="flex items-center gap-1 mb-2.5">
+          {/* Location */}
+          <div className="flex items-center gap-1 mb-2">
             <MapPin className="w-3 h-3 flex-shrink-0" style={{ color: 'oklch(0.55 0.14 38)' }} />
             <span
               className="text-xs"
@@ -159,6 +179,32 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
             </span>
           </div>
 
+          {/* Tags — postmark style, max 2 */}
+          {stay.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mb-2.5">
+              {stay.tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: 'inline-flex',
+                    border: '1.5px solid oklch(0.70 0.04 60)',
+                    borderRadius: '2px',
+                    padding: '1px 5px',
+                    fontSize: '0.58rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    color: 'oklch(0.48 0.04 60)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Footer */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <Users className="w-3 h-3" style={{ color: 'oklch(0.60 0.03 60)' }} />

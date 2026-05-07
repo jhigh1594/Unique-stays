@@ -368,7 +368,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                   className="fade-up"
                   style={{ transitionDelay: `${Math.min(i * 50, 400)}ms` }}
                 >
-                  <StayCard stay={stay} accentColor={config.accentColor} />
+                  <StayCard stay={stay} accentColor={config.accentColor} index={i} />
                 </div>
               ))}
             </div>
