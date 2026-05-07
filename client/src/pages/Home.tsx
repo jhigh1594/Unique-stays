@@ -726,7 +726,7 @@ export default function Home() {
       <section
         id="newsletter"
         className="py-24 relative overflow-hidden grain-overlay"
-        style={{ background: 'oklch(0.30 0.08 38)' }}
+        style={{ background: 'oklch(0.33 0.10 38)' }}
       >
         <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6">
           <div className="fade-up">
@@ -740,7 +740,7 @@ export default function Home() {
             </h2>
             <p
               className="text-base mb-8 text-left"
-              style={{ color: 'oklch(0.85 0.05 45)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.78 0.06 42)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               New extraordinary stays in your inbox every Tuesday.
             </p>
@@ -764,9 +764,9 @@ export default function Home() {
                 required
                 className="flex-1 px-4 py-3 text-sm outline-none focus:ring-2"
                 style={{
-                  background: 'oklch(0.24 0.06 38)',
+                  background: 'oklch(0.26 0.07 38)',
                   color: 'oklch(0.93 0.025 75)',
-                  border: '1.5px solid oklch(0.42 0.09 38)',
+                  border: '1.5px solid oklch(0.45 0.10 38)',
                   borderRadius: '3px',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
                   '--tw-ring-color': 'oklch(0.85 0.10 45)',
