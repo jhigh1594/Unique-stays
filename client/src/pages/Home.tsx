@@ -1,20 +1,33 @@
 // ============================================================
 // Home Page — Unique Stays USA
-// Design: Wanderer's Postcard Collection
-// Sections: Hero, Categories, Featured Stays, Editorial Strip,
-//           More Stays, Newsletter, About Teaser
+// Design: Wanderer's Postcard Collection — World-Class Edition
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
-import { ArrowRight, ChevronRight, Search, Sparkles, MapPin } from 'lucide-react';
+import {
+  ArrowRight,
+  ChevronRight,
+  Search,
+  Sparkles,
+  CheckCircle2,
+} from 'lucide-react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  animate,
+} from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StayCard from '@/components/StayCard';
+import FilmstripSection from '@/components/FilmstripSection';
+import CorkboardTestimonials from '@/components/CorkboardTestimonials';
 import { STAYS, CATEGORIES, SPOKES } from '@/lib/stays-data';
 
-// ── Scroll animation hook ──────────────────────────────────
-function useScrollReveal() {
+// ── Intersection-based clip-reveal observer ────────────────
+function useClipReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -24,48 +37,208 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
     );
-    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.fade-up, .clip-reveal').forEach((el) =>
+      observer.observe(el)
+    );
     return () => observer.disconnect();
   }, []);
 }
 
+// ── Animated counter ──────────────────────────────────────
+function AnimatedStat({
+  to,
+  suffix = '',
+  prefix = '',
+  duration = 1.4,
+}: {
+  to: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+  useEffect(() => {
+    if (!isInView || !ref.current) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: 'easeOut',
+      onUpdate: (v) => {
+        if (ref.current) ref.current.textContent = prefix + Math.round(v) + suffix;
+      },
+    });
+    return controls.stop;
+  }, [isInView, to, suffix, prefix, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}0{suffix}
+    </span>
+  );
+}
+
+// ── Word-by-word reveal ───────────────────────────────────
+function SplitReveal({
+  text,
+  delay = 0,
+  className,
+  style,
+}: {
+  text: string;
+  delay?: number;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span className={className} style={style}>
+      {text.split(' ').map((word, i) => (
+        <span
+          key={i}
+          className="word-overflow"
+          style={{ marginRight: '0.28em' }}
+        >
+          <motion.span
+            style={{ display: 'inline-block' }}
+            initial={{ y: '110%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            transition={{
+              duration: 0.72,
+              delay: delay + i * 0.09,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// ── Cycling search placeholder ───────────────────────────
+const SEARCH_SUGGESTIONS = [
+  'Try: treehouse in the Pacific Northwest',
+  'Try: geodesic dome, Joshua Tree',
+  'Try: lighthouse on the Maine coast',
+  'Try: cave dwelling, Sedona',
+  'Try: houseboat, Pacific Northwest',
+  'Try: A-frame cabin, Blue Ridge Mountains',
+];
+
+function useCyclingPlaceholder() {
+  const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIdx((i) => (i + 1) % SEARCH_SUGGESTIONS.length);
+        setVisible(true);
+      }, 280);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  return { placeholder: SEARCH_SUGGESTIONS[idx], visible };
+}
+
+// ── Ghost section number ──────────────────────────────────
+function GhostNumber({ n, light = false }: { n: string; light?: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute select-none pointer-events-none font-display leading-none"
+      style={{
+        fontSize: 'clamp(8rem, 18vw, 15rem)',
+        color: light ? 'oklch(0.99 0.005 85)' : 'oklch(0.22 0.01 60)',
+        opacity: light ? 0.05 : 0.04,
+        bottom: '-0.1em',
+        left: '-0.04em',
+        lineHeight: 1,
+        fontFamily: 'Fraunces, serif',
+        fontWeight: 900,
+        zIndex: 0,
+      }}
+    >
+      {n}
+    </span>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────
 export default function Home() {
-  useScrollReveal();
+  useClipReveal();
+
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [newsletterDone, setNewsletterDone] = useState(false);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const { placeholder, visible: placeholderVisible } = useCyclingPlaceholder();
+
+  // Hero parallax
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const heroImageY = useTransform(heroProgress, [0, 1], ['0%', '22%']);
+  const heroContentY = useTransform(heroProgress, [0, 1], ['0%', '10%']);
 
   const featuredStays = STAYS.filter((s) => s.featured);
   const editorsPickStays = STAYS.filter((s) => s.editorsPick && !s.featured).slice(0, 3);
-  const recentStays = STAYS.filter((s) => !s.featured).slice(0, 6);
+  const filmstripStays = STAYS.filter((s) => !s.featured && !s.editorsPick).slice(0, 9);
+
+  // Category-filtered content
+  const filteredStays =
+    activeCategory === 'All'
+      ? STAYS.filter((s) => !s.featured).slice(0, 6)
+      : STAYS.filter((s) => s.category === activeCategory).slice(0, 6);
 
   return (
     <div className="min-h-screen" style={{ background: 'oklch(0.975 0.012 85)' }}>
       <Navbar />
 
-      {/* ── HERO SECTION ──────────────────────────────────── */}
-      <section className="relative min-h-[100svh] flex items-end overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 grain-overlay">
+      {/* ══════════════════════════════════════════════════════
+          HERO — Parallax · Word Reveal · Stat Counters
+      ══════════════════════════════════════════════════════ */}
+      <section
+        ref={heroRef}
+        className="relative min-h-[100svh] flex items-end overflow-hidden"
+      >
+        {/* Background image — parallax layer */}
+        <motion.div
+          className="absolute inset-0 grain-overlay"
+          style={{ y: heroImageY }}
+        >
           <img
             src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-treehouse-JWbjZXvAKxUiXAg4QS7BnL.webp"
             alt="Enchanted treehouse in redwood forest"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/70" />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-black/75" />
+        </motion.div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20">
+        {/* Hero content */}
+        <motion.div
+          className="relative z-10 w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24"
+          style={{ y: heroContentY }}
+        >
           <div className="max-w-2xl">
             {/* Eyebrow */}
-            <div className="flex items-center gap-2 mb-5">
+            <motion.div
+              className="flex items-center gap-2 mb-6"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+            >
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest"
                 style={{
-                  background: 'oklch(0.55 0.14 38 / 0.9)',
+                  background: 'oklch(0.55 0.14 38 / 0.88)',
                   color: 'oklch(0.99 0.005 85)',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
                   backdropFilter: 'blur(8px)',
@@ -74,109 +247,151 @@ export default function Home() {
                 <Sparkles className="w-3 h-3" />
                 Curated Stays Across America
               </span>
-            </div>
+            </motion.div>
 
-            {/* Main Headline */}
+            {/* Main Headline — word by word */}
             <h1
-              className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[0.95] mb-6 text-white"
-              style={{ fontFamily: 'Fraunces, serif', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}
+              className="font-bold mb-2 text-white"
+              style={{
+                fontFamily: 'Fraunces, serif',
+                fontSize: 'clamp(3.4rem, 8vw, 7rem)',
+                lineHeight: 0.97,
+                textShadow: '0 2px 24px rgba(0,0,0,0.25)',
+              }}
             >
-              Sleep somewhere
+              <SplitReveal text="Sleep somewhere" delay={1.05} />
               <br />
-              <span style={{ color: 'oklch(0.85 0.10 45)', fontStyle: 'italic' }}>
-                extraordinary.
-              </span>
+              <SplitReveal
+                text="extraordinary."
+                delay={1.22}
+                style={{ color: 'oklch(0.85 0.10 45)', fontStyle: 'italic' }}
+              />
             </h1>
 
             {/* Subheadline */}
-            <p
-              className="text-lg md:text-xl text-white/85 mb-8 max-w-lg leading-relaxed"
-              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', textShadow: '0 1px 8px rgba(0,0,0,0.3)' }}
-            >
-              We find the treehouses, domes, lighthouses, and hidden wonders that turn a trip into a story worth telling.
-            </p>
-
-            {/* Search Bar */}
-            <div
-              className="flex items-center gap-3 p-2 pl-4 rounded-2xl mb-6 max-w-lg"
+            <motion.p
+              className="text-lg md:text-xl text-white/82 mb-8 max-w-lg leading-relaxed mt-5"
               style={{
-                background: 'oklch(0.99 0.005 85 / 0.95)',
-                backdropFilter: 'blur(12px)',
-                boxShadow: '0 8px 40px -8px rgba(0,0,0,0.3)',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                textShadow: '0 1px 8px rgba(0,0,0,0.25)',
+              }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.55 }}
+            >
+              We find the treehouses, domes, lighthouses, and hidden wonders
+              that turn a trip into a story worth telling.
+            </motion.p>
+
+            {/* Search bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.65 }}
+              className="flex items-center gap-3 p-2 pl-4 rounded-2xl mb-7 max-w-lg"
+              style={{
+                background: 'oklch(0.99 0.005 85 / 0.96)',
+                backdropFilter: 'blur(16px)',
+                boxShadow: '0 8px 48px -8px rgba(0,0,0,0.35)',
               }}
             >
-              <Search className="w-4 h-4 flex-shrink-0" style={{ color: 'oklch(0.55 0.14 38)' }} />
+              <Search
+                className="w-4 h-4 flex-shrink-0"
+                style={{ color: 'oklch(0.55 0.14 38)' }}
+              />
               <input
                 type="text"
-                placeholder="Search by state, type, or vibe..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-[oklch(0.65_0.02_60)]"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: 'oklch(0.22 0.01 60)' }}
+                className="flex-1 bg-transparent text-sm outline-none"
+                style={{
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  color: 'oklch(0.22 0.01 60)',
+                }}
+                placeholder={placeholderVisible ? placeholder : ''}
               />
-              <Link href={`/directory${searchQuery ? `?q=${encodeURIComponent(searchQuery)}` : ''}`}>
-                <button
-                  className="px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+              <Link
+                href={`/directory${searchQuery ? `?q=${encodeURIComponent(searchQuery)}` : ''}`}
+              >
+                <motion.button
+                  className="px-4 py-2 rounded-xl text-sm font-semibold"
                   style={{
                     background: 'oklch(0.55 0.14 38)',
                     color: 'oklch(0.99 0.005 85)',
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
                   Find It
-                </button>
+                </motion.button>
               </Link>
-            </div>
+            </motion.div>
 
-            {/* Quick Stats */}
-            <div className="flex items-center gap-6 flex-wrap">
+            {/* Stats */}
+            <motion.div
+              className="flex items-center gap-7 flex-wrap"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.8 }}
+            >
               {[
-                { value: '400+', label: 'Curated Stays' },
-                { value: '48', label: 'States Covered' },
-                { value: '10', label: 'Categories' },
+                { to: 400, suffix: '+', label: 'Curated Stays' },
+                { to: 48, suffix: '', label: 'States Covered' },
+                { to: 10, suffix: '', label: 'Categories' },
               ].map((stat) => (
-                <div key={stat.label} className="flex items-center gap-2">
+                <div key={stat.label} className="flex items-baseline gap-1.5">
                   <span
                     className="text-2xl font-bold"
                     style={{ color: 'oklch(0.85 0.10 45)', fontFamily: 'Fraunces, serif' }}
                   >
-                    {stat.value}
+                    <AnimatedStat to={stat.to} suffix={stat.suffix} duration={1.4} />
                   </span>
                   <span
-                    className="text-sm text-white/70"
+                    className="text-sm text-white/65"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     {stat.label}
                   </span>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 right-8 md:right-12 z-10 hidden md:flex flex-col items-center gap-2">
+        <motion.div
+          className="absolute bottom-8 right-8 md:right-12 z-10 hidden md:flex flex-col items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0, duration: 0.6 }}
+        >
           <span
-            className="text-xs text-white/60 uppercase tracking-widest"
+            className="text-xs text-white/55 uppercase tracking-widest"
             style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', writingMode: 'vertical-rl' }}
           >
             Scroll to explore
           </span>
-          <div className="w-px h-12 bg-white/30 relative overflow-hidden">
+          <div className="w-px h-12 bg-white/25 relative overflow-hidden">
             <div
-              className="absolute top-0 left-0 w-full bg-white/80"
+              className="absolute top-0 left-0 w-full bg-white/70"
               style={{ height: '40%', animation: 'scrollLine 2s ease-in-out infinite' }}
             />
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* ── CATEGORIES STRIP ──────────────────────────────── */}
-      <section className="py-10 border-b border-[oklch(0.88_0.025_75)]" style={{ background: 'oklch(0.99 0.005 85)' }}>
+      {/* ══════════════════════════════════════════════════════
+          CATEGORIES STRIP
+      ══════════════════════════════════════════════════════ */}
+      <section
+        className="py-10 border-b border-[oklch(0.88_0.025_75)]"
+        style={{ background: 'oklch(0.99 0.005 85)' }}
+      >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
             <h2
-              className="text-sm font-bold uppercase tracking-widest"
+              className="text-xs font-bold uppercase tracking-widest flex-shrink-0"
               style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               Browse by Type
@@ -184,7 +399,7 @@ export default function Home() {
             <div className="flex-1 h-px bg-[oklch(0.88_0.025_75)]" />
             <Link href="/directory">
               <span
-                className="text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+                className="text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all flex-shrink-0"
                 style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
                 See all <ChevronRight className="w-4 h-4" />
@@ -192,45 +407,50 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Scrollable category pills */}
-          <div
-            ref={categoryScrollRef}
-            className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            <button
-              className={`category-pill flex-shrink-0 ${activeCategory === 'All' ? 'active' : 'inactive'}`}
-              onClick={() => setActiveCategory('All')}
+          {/* Scrollable pills with fade edge */}
+          <div className="relative">
+            <div
+              className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none z-10"
+              style={{
+                background: 'linear-gradient(to right, transparent, oklch(0.99 0.005 85))',
+              }}
+            />
+            <div
+              ref={categoryScrollRef}
+              className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide pr-16"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              🗺️ All Stays
-            </button>
-            {CATEGORIES.map((cat) => (
               <button
-                key={cat.id}
-                className={`category-pill flex-shrink-0 ${activeCategory === cat.id ? 'active' : 'inactive'}`}
-                onClick={() => setActiveCategory(cat.id)}
+                className={`category-pill flex-shrink-0 ${activeCategory === 'All' ? 'active' : 'inactive'}`}
+                onClick={() => setActiveCategory('All')}
               >
-                <span>{cat.emoji}</span>
-                <span>{cat.label}</span>
-                <span
-                  className="ml-1 text-xs opacity-60"
-                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  {cat.count}
-                </span>
+                🗺️ All Stays
               </button>
-            ))}
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  className={`category-pill flex-shrink-0 ${activeCategory === cat.id ? 'active' : 'inactive'}`}
+                  onClick={() => setActiveCategory(cat.id)}
+                >
+                  <span>{cat.emoji}</span>
+                  <span>{cat.label}</span>
+                  <span className="ml-1 text-xs opacity-55">{cat.count}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FEATURED STAYS ────────────────────────────────── */}
-      <section className="py-20">
+      {/* ══════════════════════════════════════════════════════
+          01 — FEATURED STAYS
+      ══════════════════════════════════════════════════════ */}
+      <section className="py-24 relative overflow-hidden">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header — magazine department number format */}
-          <div className="flex items-stretch gap-6 mb-12 fade-up">
-            {/* Section number */}
-            <div className="flex-shrink-0 flex items-center">
+          {/* Section header */}
+          <div className="flex items-stretch gap-6 mb-14 fade-up relative">
+            <GhostNumber n="01" />
+            <div className="flex-shrink-0 flex items-center relative z-10">
               <span
                 className="font-bold leading-none select-none"
                 style={{
@@ -243,14 +463,19 @@ export default function Home() {
                 01
               </span>
             </div>
-            {/* Vertical rule */}
-            <div className="w-px self-stretch" style={{ background: 'oklch(0.88 0.025 75)' }} />
-            {/* Title + description + CTA */}
-            <div className="flex flex-col justify-between py-1 flex-1">
+            <div
+              className="w-px self-stretch relative z-10"
+              style={{ background: 'oklch(0.88 0.025 75)' }}
+            />
+            <div className="flex flex-col justify-between py-1 flex-1 relative z-10">
               <div>
                 <h2
-                  className="text-4xl md:text-5xl font-bold leading-tight mb-2"
-                  style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                  className="font-bold leading-tight mb-2"
+                  style={{
+                    fontFamily: 'Fraunces, serif',
+                    color: 'oklch(0.22 0.01 60)',
+                    fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)',
+                  }}
                 >
                   This Week's Stays
                 </h2>
@@ -262,44 +487,50 @@ export default function Home() {
                 </p>
               </div>
               <Link href="/directory">
-                <button
-                  className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 border-2 text-sm font-semibold transition-all self-start hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+                <motion.button
+                  className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 border-2 text-sm font-semibold self-start"
                   style={{
                     borderRadius: '2px',
                     borderColor: 'oklch(0.55 0.14 38)',
                     color: 'oklch(0.55 0.14 38)',
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
+                  whileHover={{
+                    background: 'oklch(0.55 0.14 38)',
+                    color: 'oklch(0.99 0.005 85)',
+                  }}
+                  transition={{ duration: 0.18 }}
                 >
                   Browse Everything <ArrowRight className="w-4 h-4" />
-                </button>
+                </motion.button>
               </Link>
             </div>
           </div>
 
-          {/* Featured Grid — asymmetric layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Asymmetric grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {/* Large featured card */}
-            <div className="lg:col-span-2 fade-up" style={{ transitionDelay: '100ms' }}>
+            <div className="lg:col-span-2 fade-up" style={{ transitionDelay: '80ms' }}>
               {featuredStays[0] && (
                 <a
                   href={featuredStays[0].affiliateUrl}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   className="group block"
+                  data-cursor="view"
                 >
-                  <div
-                    className="stay-card relative overflow-hidden rounded-2xl"
-                    style={{ height: '480px' }}
+                  <motion.div
+                    className="relative overflow-hidden"
+                    style={{ height: '500px', borderRadius: '3px' }}
+                    whileHover={{ y: -6 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 22 }}
                   >
                     <img
                       src={featuredStays[0].image}
                       alt={featuredStays[0].title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                    {/* Badges */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/15 to-transparent" />
                     <div className="absolute top-5 left-5 flex gap-2">
                       <span
                         className="stamp-badge"
@@ -319,9 +550,7 @@ export default function Home() {
                         Airbnb
                       </span>
                     </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="absolute bottom-0 left-0 right-0 p-7">
                       <p
                         className="text-xs font-bold uppercase tracking-widest mb-2"
                         style={{ color: 'oklch(0.85 0.10 45)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
@@ -335,45 +564,52 @@ export default function Home() {
                         {featuredStays[0].title}
                       </h3>
                       <p
-                        className="text-sm text-white/75 mb-4 line-clamp-2"
+                        className="text-sm text-white/70 mb-5 line-clamp-2 max-w-lg"
                         style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                       >
                         {featuredStays[0].description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <span
-                            className="text-2xl font-bold text-white"
-                            style={{ fontFamily: 'Fraunces, serif' }}
-                          >
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Fraunces, serif' }}>
                             ${featuredStays[0].price}
                           </span>
-                          <span className="text-white/60 text-sm" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+                          <span className="text-white/55 text-sm" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                             / night
                           </span>
                         </div>
-                        <span
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all group-hover:gap-3"
+                        <motion.span
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold"
                           style={{
                             background: 'oklch(0.55 0.14 38)',
                             color: 'oklch(0.99 0.005 85)',
                             fontFamily: 'Plus Jakarta Sans, sans-serif',
                           }}
+                          whileHover={{ gap: '12px', paddingRight: '20px' }}
+                          transition={{ duration: 0.2 }}
                         >
                           Take Me There <ArrowRight className="w-4 h-4" />
-                        </span>
+                        </motion.span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </a>
               )}
             </div>
 
             {/* Right column — two stacked cards */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-7">
               {featuredStays.slice(1, 3).map((stay, i) => (
-                <div key={stay.id} className="fade-up" style={{ transitionDelay: `${200 + i * 100}ms` }}>
-                  <StayCard stay={stay} index={i} />
+                <div key={stay.id} className="fade-up" style={{ transitionDelay: `${180 + i * 100}ms` }}>
+                  <a
+                    href={stay.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    data-cursor="view"
+                    className="block"
+                  >
+                    <StayCard stay={stay} index={i} />
+                  </a>
                 </div>
               ))}
             </div>
@@ -381,114 +617,324 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EDITORIAL BANNER ──────────────────────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          EDITORIAL MANIFESTO BANNER — The emotional peak
+      ══════════════════════════════════════════════════════ */}
       <section
-        className="py-20 relative overflow-hidden grain-overlay"
-        style={{ background: 'oklch(0.38 0.09 155)' }}
+        className="relative overflow-hidden blueprint-grid"
+        style={{
+          background: 'oklch(0.38 0.09 155)',
+          minHeight: '85vh',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+        data-dark-section
       >
-        {/* Decorative background pattern */}
+        {/* Atmospheric radial lights */}
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, oklch(0.99 0.005 85) 0%, transparent 50%), radial-gradient(circle at 80% 50%, oklch(0.72 0.10 40) 0%, transparent 50%)`,
+            backgroundImage: `
+              radial-gradient(ellipse 60% 70% at 15% 60%, oklch(0.55 0.14 38 / 0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 50% at 85% 30%, oklch(0.72 0.10 40 / 0.08) 0%, transparent 60%)
+            `,
           }}
         />
 
-        <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text */}
-            <div className="fade-up">
-              {/* Stamp-style label */}
-              <div className="mb-6">
+        <div className="relative z-10 w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            {/* Left — massive editorial type */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-8"
+              >
                 <span
                   className="stamp-badge"
                   style={{
-                    color: 'oklch(0.85 0.10 45)',
-                    borderColor: 'oklch(0.85 0.10 45)',
+                    color: 'oklch(0.72 0.10 40)',
+                    borderColor: 'oklch(0.72 0.10 40)',
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
                 >
-                  Our Philosophy
+                  Our Manifesto
                 </span>
-              </div>
+              </motion.div>
+
               <h2
-                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
+                style={{
+                  fontFamily: 'Fraunces, serif',
+                  color: 'oklch(0.99 0.005 85)',
+                  fontSize: 'clamp(3.8rem, 9vw, 8.5rem)',
+                  lineHeight: 0.95,
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                }}
               >
-                Not just a place
-                <br />to sleep.
+                <SplitReveal text="Not just" delay={0.1} />
                 <br />
-                <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>
+                <SplitReveal text="a place" delay={0.28} />
+                <br />
+                <SplitReveal
+                  text="to sleep."
+                  delay={0.46}
+                />
+                <br />
+                <motion.span
+                  style={{
+                    fontStyle: 'italic',
+                    color: 'oklch(0.85 0.10 45)',
+                    display: 'inline-block',
+                  }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                >
                   A story to tell.
-                </span>
+                </motion.span>
               </h2>
-              <p
-                className="text-base leading-relaxed"
-                style={{ color: 'oklch(0.85 0.04 155)', fontFamily: 'Plus Jakarta Sans, sans-serif', maxWidth: '440px' }}
+
+              <motion.p
+                className="text-base leading-loose mt-8 max-w-md"
+                style={{
+                  color: 'oklch(0.80 0.04 155)',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  lineHeight: 1.85,
+                }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.6, delay: 0.9 }}
               >
-                We believe the best travel memories aren't made in hotel rooms — they're made in the places that make you gasp when you arrive. We spend hundreds of hours finding them so you don't have to.
-              </p>
+                There's a treehouse in Oregon where the wind stays up in the canopy
+                and the ground is almost completely still. That particular quiet —
+                the kind you can't manufacture — is what we spend our time looking
+                for. The places that don't perform for the camera. The ones that
+                earn your presence before you've even unpacked.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.5, delay: 1.05 }}
+                className="mt-10"
+              >
+                <Link href="/about">
+                  <motion.span
+                    className="inline-flex items-center gap-2 text-sm font-semibold"
+                    style={{
+                      color: 'oklch(0.72 0.10 40)',
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                      borderBottom: '1px solid oklch(0.72 0.10 40 / 0.4)',
+                      paddingBottom: '2px',
+                    }}
+                    whileHover={{ gap: '12px' }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Read our approach <ArrowRight className="w-4 h-4" />
+                  </motion.span>
+                </Link>
+              </motion.div>
             </div>
 
-            {/* Right: Postcard-style image with hard tilt */}
-            <div className="fade-up flex justify-center" style={{ transitionDelay: '150ms' }}>
+            {/* Right — postcard stack with drop animation */}
+            <div className="lg:col-span-5 relative flex justify-center items-center" style={{ minHeight: '420px' }}>
+              {/* Ghost handwriting behind the cards */}
               <div
-                className="overflow-hidden shadow-2xl"
-                style={{ transform: 'rotate(5deg)', borderRadius: '3px', maxWidth: '420px', width: '100%' }}
+                className="absolute select-none pointer-events-none"
+                style={{
+                  fontFamily: 'Fraunces, serif',
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(1.1rem, 2.5vw, 1.8rem)',
+                  color: 'oklch(0.99 0.005 85)',
+                  opacity: 0.06,
+                  transform: 'rotate(-12deg)',
+                  whiteSpace: 'nowrap',
+                  letterSpacing: '0.04em',
+                  zIndex: 0,
+                  lineHeight: 1.4,
+                  textAlign: 'center',
+                }}
+              >
+                Greetings from
+                <br />
+                somewhere extraordinary
+              </div>
+
+              {/* Back card — drops in first */}
+              <motion.div
+                className="absolute overflow-hidden shadow-2xl"
+                style={{
+                  width: '78%',
+                  maxWidth: 340,
+                  borderRadius: '3px',
+                  top: '5%',
+                  right: '2%',
+                  zIndex: 1,
+                }}
+                initial={{ y: -100, rotate: -3, opacity: 0 }}
+                whileInView={{ y: 0, rotate: -8, opacity: 1 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 160,
+                  damping: 16,
+                  delay: 0.15,
+                }}
+              >
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-dome-fNq53JMSCre9pYDm759BF5.webp"
+                  alt="Desert dome"
+                  className="w-full h-44 object-cover"
+                />
+                <div
+                  className="px-4 py-3"
+                  style={{ background: 'oklch(0.99 0.005 85)' }}
+                >
+                  <p style={{ fontFamily: 'Fraunces, serif', fontSize: '0.75rem', color: 'oklch(0.35 0.02 60)', fontStyle: 'italic' }}>
+                    Desert dome — Joshua Tree, CA
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Front card — drops in second, overlaps */}
+              <motion.div
+                className="relative overflow-hidden shadow-2xl"
+                style={{
+                  width: '82%',
+                  maxWidth: 360,
+                  borderRadius: '3px',
+                  border: '10px solid oklch(0.99 0.005 85)',
+                  zIndex: 2,
+                  marginTop: '60px',
+                }}
+                initial={{ y: -120, rotate: 2, opacity: 0 }}
+                whileInView={{ y: 0, rotate: 5, opacity: 1 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 180,
+                  damping: 18,
+                  delay: 0.3,
+                }}
               >
                 <img
                   src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-banner-mhiZ34LNJ6enqJKTL8o9M4.webp"
                   alt="Unique stays collage"
-                  className="w-full h-80 object-cover"
+                  className="w-full h-52 object-cover"
                 />
-              </div>
+                <div
+                  className="px-4 py-3"
+                  style={{ background: 'oklch(0.99 0.005 85)' }}
+                >
+                  <p style={{ fontFamily: 'Fraunces, serif', fontSize: '0.75rem', color: 'oklch(0.35 0.02 60)', fontStyle: 'italic' }}>
+                    Old-growth forest — Arch Cape, OR
+                  </p>
+                </div>
+
+                {/* Stamp badge over the image */}
+                <motion.div
+                  className="absolute top-4 right-4"
+                  initial={{ opacity: 0, scale: 0.6, rotate: -15 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: -12 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7, type: 'spring', stiffness: 280, damping: 18 }}
+                >
+                  <span
+                    className="stamp-badge"
+                    style={{
+                      background: 'oklch(0.55 0.14 38)',
+                      color: 'oklch(0.99 0.005 85)',
+                      borderColor: 'oklch(0.72 0.10 40)',
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                      fontSize: '0.65rem',
+                      padding: '4px 10px',
+                    }}
+                  >
+                    400+ stays found ✦
+                  </span>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── EDITOR'S PICKS ────────────────────────────────── */}
-      <section className="py-20">
+      {/* ══════════════════════════════════════════════════════
+          02 — EDITOR'S PICKS
+      ══════════════════════════════════════════════════════ */}
+      <section className="py-24 relative overflow-hidden">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Full-bleed editorial header — no eyebrow, just weight */}
-          <div className="mb-12 fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div className="mb-14 fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-4 relative">
+            <GhostNumber n="02" />
             <h2
-              className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none"
-              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+              className="font-bold leading-none relative z-10"
+              style={{
+                fontFamily: 'Fraunces, serif',
+                color: 'oklch(0.22 0.01 60)',
+                fontSize: 'clamp(4rem, 10vw, 8rem)',
+              }}
             >
               Editor's
               <br />
-              <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}>Picks.</span>
+              <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}>
+                Picks.
+              </span>
             </h2>
             <p
-              className="text-sm max-w-xs pb-2"
-              style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif', lineHeight: 1.6 }}
+              className="text-sm max-w-xs pb-2 relative z-10"
+              style={{
+                color: 'oklch(0.50 0.03 60)',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                lineHeight: 1.65,
+              }}
             >
-              Hand-reviewed by our team. Every one of these made us say <em>"I need to go here."</em>
+              Hand-reviewed by our team. Every one of these made us say{' '}
+              <em>"I need to go here."</em>
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {editorsPickStays.map((stay, i) => (
               <div key={stay.id} className="fade-up" style={{ transitionDelay: `${i * 100}ms` }}>
-                <StayCard stay={stay} index={i + 2} />
+                <a
+                  href={stay.affiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  data-cursor="view"
+                  className="block"
+                >
+                  <StayCard stay={stay} index={i + 2} />
+                </a>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CATEGORY SHOWCASE ─────────────────────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          CATEGORY SHOWCASE — Mosaic tiles
+      ══════════════════════════════════════════════════════ */}
       <section
         className="py-20 grain-overlay"
         style={{ background: 'oklch(0.22 0.04 75)' }}
+        data-dark-section
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section label */}
           <div className="flex items-center gap-4 mb-10 fade-up">
             <span
               className="stamp-badge"
-              style={{ color: 'oklch(0.72 0.10 40)', borderColor: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{
+                color: 'oklch(0.72 0.10 40)',
+                borderColor: 'oklch(0.72 0.10 40)',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
+              }}
             >
               Every Kind of Extraordinary
             </span>
@@ -503,9 +949,7 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Magazine mosaic — varying visual weights */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {/* Row 1: two wide tiles */}
             {CATEGORIES.slice(0, 2).map((cat, i) => {
               const palette = [
                 { bg: 'oklch(0.55 0.14 38)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.85 0.10 45)' },
@@ -513,8 +957,8 @@ export default function Home() {
               ][i];
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
-                  <div
-                    className="fade-up group col-span-1 md:col-span-2 p-5 md:p-8 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
+                  <motion.div
+                    className="fade-up col-span-1 md:col-span-2 p-6 md:p-8 cursor-pointer"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
@@ -524,28 +968,24 @@ export default function Home() {
                       flexDirection: 'column',
                       justifyContent: 'space-between',
                     }}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+                    data-cursor="view"
                   >
                     <div className="text-4xl">{cat.emoji}</div>
                     <div>
-                      <div
-                        className="text-2xl md:text-3xl font-bold mb-1"
-                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
-                      >
+                      <div className="text-2xl md:text-3xl font-bold mb-1" style={{ fontFamily: 'Fraunces, serif', color: palette.text }}>
                         {cat.label}
                       </div>
-                      <div
-                        className="stamp-badge"
-                        style={{ color: palette.count, borderColor: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                      >
+                      <div className="stamp-badge" style={{ color: palette.count, borderColor: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                         {cat.count} stays
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               );
             })}
 
-            {/* Row 2: four standard tiles */}
             {CATEGORIES.slice(2, 6).map((cat, i) => {
               const palette = [
                 { bg: 'oklch(0.30 0.01 60)', text: 'oklch(0.93 0.025 75)', count: 'oklch(0.60 0.02 60)' },
@@ -555,8 +995,8 @@ export default function Home() {
               ][i];
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
-                  <div
-                    className="fade-up group p-5 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
+                  <motion.div
+                    className="fade-up p-5 cursor-pointer"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
@@ -566,28 +1006,24 @@ export default function Home() {
                       flexDirection: 'column',
                       justifyContent: 'space-between',
                     }}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+                    data-cursor="view"
                   >
                     <div className="text-3xl">{cat.emoji}</div>
                     <div>
-                      <div
-                        className="text-lg font-bold mb-1"
-                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
-                      >
+                      <div className="text-lg font-bold mb-1" style={{ fontFamily: 'Fraunces, serif', color: palette.text }}>
                         {cat.label}
                       </div>
-                      <div
-                        className="text-xs font-semibold uppercase tracking-widest"
-                        style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                      >
+                      <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                         {cat.count} stays
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               );
             })}
 
-            {/* Row 3: remaining tiles */}
             {CATEGORIES.slice(6).map((cat, i) => {
               const palette = [
                 { bg: 'oklch(0.52 0.08 155)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.80 0.06 155)' },
@@ -597,8 +1033,8 @@ export default function Home() {
               ][i % 4];
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
-                  <div
-                    className="fade-up group p-5 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
+                  <motion.div
+                    className="fade-up p-5 cursor-pointer"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
@@ -608,23 +1044,20 @@ export default function Home() {
                       flexDirection: 'column',
                       justifyContent: 'space-between',
                     }}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+                    data-cursor="view"
                   >
                     <div className="text-2xl">{cat.emoji}</div>
                     <div>
-                      <div
-                        className="text-base font-bold mb-1"
-                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
-                      >
+                      <div className="text-base font-bold mb-1" style={{ fontFamily: 'Fraunces, serif', color: palette.text }}>
                         {cat.label}
                       </div>
-                      <div
-                        className="text-xs font-semibold uppercase tracking-widest"
-                        style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                      >
+                      <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                         {cat.count} stays
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               );
             })}
@@ -632,59 +1065,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── HUB & SPOKE COLLECTIONS ─────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          HUB & SPOKE COLLECTIONS
+      ══════════════════════════════════════════════════════ */}
       <SpokeHubSection />
 
-      {/* ── MORE STAYS GRID ──────────────────── */}
-      <section className="py-20">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Ruled editorial header */}
-          <div className="mb-12 fade-up">
-            <div className="flex items-center gap-4 mb-3">
-              <div className="flex-1 h-px" style={{ background: 'oklch(0.88 0.025 75)' }} />
-              <span
-                className="stamp-badge"
-                style={{ color: 'oklch(0.55 0.14 38)', borderColor: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                Keep Exploring
-              </span>
-              <div className="flex-1 h-px" style={{ background: 'oklch(0.88 0.025 75)' }} />
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      {/* ══════════════════════════════════════════════════════
+          03 — FILMSTRIP (replaces boring "More Wonders" grid)
+      ══════════════════════════════════════════════════════ */}
+      <FilmstripSection stays={filmstripStays} />
+
+      {/* ══════════════════════════════════════════════════════
+          FILTERED BROWSE (connects activeCategory filter)
+      ══════════════════════════════════════════════════════ */}
+      {activeCategory !== 'All' && (
+        <section className="py-16 border-t border-[oklch(0.88_0.025_75)]">
+          <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-10"
+            >
               <h2
-                className="text-5xl md:text-6xl font-bold"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                className="font-bold"
+                style={{
+                  fontFamily: 'Fraunces, serif',
+                  fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
+                  color: 'oklch(0.22 0.01 60)',
+                }}
               >
-                More
-                <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}> Wonders</span>
+                {CATEGORIES.find((c) => c.id === activeCategory)?.emoji}{' '}
+                {activeCategory}
               </h2>
-              <Link href="/directory">
-                <button
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
-                  style={{
-                    borderRadius: '2px',
-                    borderColor: 'oklch(0.55 0.14 38)',
-                    color: 'oklch(0.55 0.14 38)',
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  }}
+              <p
+                className="text-sm mt-1"
+                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              >
+                {filteredStays.length} curated stays
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredStays.map((stay, i) => (
+                <motion.div
+                  key={stay.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.07 }}
                 >
-                  Full Directory <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
+                  <a
+                    href={stay.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    data-cursor="view"
+                    className="block"
+                  >
+                    <StayCard stay={stay} index={i + 5} />
+                  </a>
+                </motion.div>
+              ))}
             </div>
           </div>
+        </section>
+      )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentStays.map((stay, i) => (
-              <div key={stay.id} className="fade-up" style={{ transitionDelay: `${i * 80}ms` }}>
-                <StayCard stay={stay} index={i + 5} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PLATFORM LOGOS ────────────────────────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          PLATFORM LOGOS
+      ══════════════════════════════════════════════════════ */}
       <section
         className="py-12 border-y border-[oklch(0.88_0.025_75)]"
         style={{ background: 'oklch(0.99 0.005 85)' }}
@@ -704,16 +1150,10 @@ export default function Home() {
               { name: 'Direct', color: 'oklch(0.55 0.14 38)', desc: 'Owner direct bookings' },
             ].map((p) => (
               <div key={p.name} className="text-center">
-                <div
-                  className="text-2xl font-bold mb-1"
-                  style={{ fontFamily: 'Fraunces, serif', color: p.color }}
-                >
+                <div className="text-2xl font-bold mb-1" style={{ fontFamily: 'Fraunces, serif', color: p.color }}>
                   {p.name}
                 </div>
-                <div
-                  className="text-xs"
-                  style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
+                <div className="text-xs" style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   {p.desc}
                 </div>
               </div>
@@ -722,21 +1162,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── NEWSLETTER ────────────────────────────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          NEWSLETTER — Fixed success state
+      ══════════════════════════════════════════════════════ */}
       <section
         id="newsletter"
         className="py-24 relative overflow-hidden grain-overlay"
         style={{ background: 'oklch(0.33 0.10 38)' }}
+        data-dark-section
       >
         <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6">
           <div className="fade-up">
             <h2
-              className="text-5xl md:text-6xl font-bold mb-4 text-left"
-              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)', lineHeight: 1.05 }}
+              className="font-bold mb-4 text-left"
+              style={{
+                fontFamily: 'Fraunces, serif',
+                color: 'oklch(0.99 0.005 85)',
+                lineHeight: 1.05,
+                fontSize: 'clamp(3rem, 6vw, 5rem)',
+              }}
             >
               The Weekly
               <br />
-              <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>Wanderer.</span>
+              <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>
+                Wanderer.
+              </span>
             </h2>
             <p
               className="text-base mb-8 text-left"
@@ -745,48 +1195,72 @@ export default function Home() {
               New extraordinary stays in your inbox every Tuesday.
             </p>
 
-            {/* Email Form */}
-            <form
-              className="flex flex-col sm:flex-row gap-3"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.target as HTMLFormElement;
-                const input = form.querySelector('input') as HTMLInputElement;
-                if (input.value) {
-                  input.value = '';
-                  alert('Thanks! You\'re on the list. 🎉');
-                }
-              }}
-            >
-              <input
-                type="email"
-                placeholder="your@email.com"
-                required
-                className="flex-1 px-4 py-3 text-sm outline-none focus:ring-2"
-                style={{
-                  background: 'oklch(0.26 0.07 38)',
-                  color: 'oklch(0.93 0.025 75)',
-                  border: '1.5px solid oklch(0.45 0.10 38)',
-                  borderRadius: '3px',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  '--tw-ring-color': 'oklch(0.85 0.10 45)',
-                } as React.CSSProperties}
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all hover:opacity-90 flex-shrink-0"
-                style={{
-                  background: 'oklch(0.85 0.10 45)',
-                  color: 'oklch(0.22 0.01 60)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  borderRadius: '3px',
-                  letterSpacing: '0.1em',
-                  fontSize: '0.7rem',
+            {newsletterDone ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                className="flex items-center gap-3 py-4"
+              >
+                <CheckCircle2
+                  className="w-6 h-6 flex-shrink-0"
+                  style={{ color: 'oklch(0.72 0.10 40)' }}
+                />
+                <div>
+                  <p
+                    className="font-bold text-base"
+                    style={{ color: 'oklch(0.99 0.005 85)', fontFamily: 'Fraunces, serif', fontStyle: 'italic' }}
+                  >
+                    You're on the list.
+                  </p>
+                  <p
+                    className="text-sm mt-0.5"
+                    style={{ color: 'oklch(0.75 0.05 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  >
+                    First issue arrives next Tuesday.
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <form
+                className="flex flex-col sm:flex-row gap-3"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setNewsletterDone(true);
                 }}
               >
-                Send Me Picks
-              </button>
-            </form>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                  className="flex-1 px-4 py-3 text-sm outline-none focus:ring-2"
+                  style={{
+                    background: 'oklch(0.26 0.07 38)',
+                    color: 'oklch(0.93 0.025 75)',
+                    border: '1.5px solid oklch(0.45 0.10 38)',
+                    borderRadius: '3px',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  } as React.CSSProperties}
+                />
+                <motion.button
+                  type="submit"
+                  className="px-6 py-3 text-sm font-bold uppercase tracking-wider flex-shrink-0"
+                  style={{
+                    background: 'oklch(0.85 0.10 45)',
+                    color: 'oklch(0.22 0.01 60)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    borderRadius: '3px',
+                    letterSpacing: '0.1em',
+                    fontSize: '0.7rem',
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Send Me Picks
+                </motion.button>
+              </form>
+            )}
+
             <p
               className="text-xs mt-4"
               style={{ color: 'oklch(0.65 0.05 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
@@ -797,10 +1271,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── ABOUT TEASER ──────────────────────────────────── */}
-      <section className="py-20">
+      {/* ══════════════════════════════════════════════════════
+          CORKBOARD TESTIMONIALS
+      ══════════════════════════════════════════════════════ */}
+      <CorkboardTestimonials />
+
+      {/* ══════════════════════════════════════════════════════
+          ABOUT TEASER
+      ══════════════════════════════════════════════════════ */}
+      <section className="py-24">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="fade-up">
               <h2
                 className="font-bold mb-6"
@@ -817,7 +1298,7 @@ export default function Home() {
                   for dreamers.
                 </span>
               </h2>
-              <div className="mb-4">
+              <div className="mb-5">
                 <span
                   className="stamp-badge"
                   style={{
@@ -830,61 +1311,74 @@ export default function Home() {
                 </span>
               </div>
               <p
-                className="text-base leading-relaxed mb-6"
+                className="text-base leading-relaxed mb-5"
                 style={{ color: 'oklch(0.45 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                We're a small team of obsessive travelers who got tired of scrolling through thousands of boring listings to find the one magical place. So we built the directory we always wanted.
+                We're a small team of obsessive travelers who got tired of
+                scrolling through thousands of ordinary listings to find the one
+                worth remembering. So we built the directory we always wanted.
               </p>
               <p
                 className="text-base leading-relaxed mb-8"
                 style={{ color: 'oklch(0.45 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Every stay in our directory has been personally reviewed. We look for the "wow" factor — the places that make you feel like you've discovered a secret. When you book through our links, we earn a small affiliate commission that keeps this site running.
+                Every stay in our directory has been personally reviewed. When
+                you book through our links, we earn a small affiliate commission
+                that keeps this site running.
               </p>
               <Link href="/about">
-                <button
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all hover:gap-3"
+                <motion.button
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold"
                   style={{
                     background: 'oklch(0.38 0.09 155)',
                     color: 'oklch(0.99 0.005 85)',
                     fontFamily: 'Plus Jakarta Sans, sans-serif',
                   }}
+                  whileHover={{ gap: '12px', paddingRight: '20px' }}
+                  transition={{ duration: 0.2 }}
                 >
                   How We Pick Them <ArrowRight className="w-4 h-4" />
-                </button>
+                </motion.button>
               </Link>
             </div>
 
-            {/* Right: Two images stacked with offset */}
             <div className="fade-up relative" style={{ transitionDelay: '150ms' }}>
               <div className="relative h-96">
-                <div
+                <motion.div
                   className="absolute top-0 right-0 w-4/5 h-64 overflow-hidden shadow-xl"
-                  style={{ transform: 'rotate(5deg)', borderRadius: '3px' }}
+                  style={{ borderRadius: '3px' }}
+                  initial={{ rotate: 2, opacity: 0, y: 20 }}
+                  whileInView={{ rotate: 5, opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 18, delay: 0.1 }}
                 >
                   <img
                     src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-dome-fNq53JMSCre9pYDm759BF5.webp"
                     alt="Desert dome glamping"
                     className="w-full h-full object-cover"
                   />
-                </div>
-                <div
+                </motion.div>
+                <motion.div
                   className="absolute bottom-0 left-0 w-3/5 h-52 overflow-hidden shadow-xl border-[10px] border-white"
-                  style={{ transform: 'rotate(-4deg)', borderRadius: '3px' }}
+                  style={{ borderRadius: '3px' }}
+                  initial={{ rotate: 0, opacity: 0, y: 20 }}
+                  whileInView={{ rotate: -4, opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 18, delay: 0.25 }}
                 >
                   <img
                     src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-houseboat-6e6D3bBeEjwZSSmSxByNAZ.webp"
                     alt="Houseboat on autumn lake"
                     className="w-full h-full object-cover"
                   />
-                </div>
-                {/* Floating postmark badge */}
-                <div
+                </motion.div>
+                <motion.div
                   className="absolute top-1/2 left-1/2 z-10 shadow-lg"
-                  style={{
-                    transform: 'translate(-50%, -50%) rotate(-10deg)',
-                    whiteSpace: 'nowrap',
-                  }}
+                  initial={{ opacity: 0, scale: 0.7, rotate: -14 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: -10 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.45 }}
+                  style={{ transform: 'translate(-50%, -50%) rotate(-10deg)', whiteSpace: 'nowrap' }}
                 >
                   <span
                     className="stamp-badge"
@@ -900,80 +1394,15 @@ export default function Home() {
                   >
                     400+ stays & counting ✦
                   </span>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIAL / SOCIAL PROOF STRIP ─────────── */}
-      <section
-        className="py-12 border-y border-[oklch(0.88_0.025_75)]"
-        style={{ background: 'oklch(0.975 0.012 85)' }}
-      >
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: '"We stayed in a cave carved into Sedona\'s red rocks. I literally cried when we arrived. This site found it for us."',
-                name: 'Sarah M.',
-                location: 'Austin, TX',
-              },
-              {
-                quote: '"The treehouse in Oregon was the most magical place I\'ve ever slept. My kids still talk about it two years later."',
-                name: 'James & Lisa T.',
-                location: 'Seattle, WA',
-              },
-              {
-                quote: '"I\'ve been using this site for every trip since I found it. The curation is impeccable — nothing boring ever makes the list."',
-                name: 'Maya R.',
-                location: 'Brooklyn, NY',
-              },
-            ].map((t, i) => (
-              <div
-                key={i}
-                className="fade-up p-6 rounded-2xl"
-                style={{
-                  background: 'oklch(0.99 0.005 85)',
-                  border: '1.5px solid oklch(0.88 0.025 75)',
-                  transitionDelay: `${i * 100}ms`,
-                }}
-              >
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <span key={j} className="text-sm" style={{ color: 'oklch(0.72 0.10 40)' }}>★</span>
-                  ))}
-                </div>
-                <p
-                  className="text-sm leading-relaxed mb-4 italic"
-                  style={{ color: 'oklch(0.35 0.02 60)', fontFamily: 'Fraunces, serif', fontSize: '1rem' }}
-                >
-                  {t.quote}
-                </p>
-                <div>
-                  <div
-                    className="text-sm font-bold"
-                    style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                  >
-                    {t.name}
-                  </div>
-                  <div
-                    className="text-xs"
-                    style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                  >
-                    {t.location}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <Footer />
 
-      {/* Scroll line animation */}
       <style>{`
         @keyframes scrollLine {
           0% { transform: translateY(-100%); }
@@ -991,51 +1420,45 @@ export default function Home() {
   );
 }
 
-// ── Hub & Spoke Collections Section ───────────────────────────
+// ── Hub & Spoke Collections ────────────────────────────────
 function SpokeHubSection() {
   return (
-    <section
-      className="py-20"
-      style={{ background: 'oklch(0.22 0.01 60)' }}
-    >
+    <section className="py-20" style={{ background: 'oklch(0.22 0.01 60)' }} data-dark-section>
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header — centered stamp rule, no h2 */}
         <div className="mb-12 fade-up">
           <div className="flex items-center gap-4 mb-6">
             <div className="flex-1 h-px" style={{ background: 'oklch(0.99 0.005 85 / 0.12)' }} />
             <span
               className="stamp-badge"
-              style={{
-                color: 'oklch(0.72 0.10 40)',
-                borderColor: 'oklch(0.72 0.10 40)',
-                fontFamily: 'Plus Jakarta Sans, sans-serif',
-                padding: '5px 16px',
-              }}
+              style={{ color: 'oklch(0.72 0.10 40)', borderColor: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif', padding: '5px 16px' }}
             >
               Five Collections
             </span>
             <div className="flex-1 h-px" style={{ background: 'oklch(0.99 0.005 85 / 0.12)' }} />
           </div>
           <p
-            className="text-sm text-center max-w-lg mx-auto"
-            style={{ color: 'oklch(0.55 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            className="text-sm text-center max-w-md mx-auto"
+            style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif', lineHeight: 1.7 }}
           >
-            One directory. Five ways to find exactly what you're looking for.
+            Some travelers know exactly what they need. A desk, strong wifi, no distractions.
+            Some know only that they need to go somewhere with the dog.
+            These are for both of them.
           </p>
         </div>
 
-        {/* Spoke Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {SPOKES.map((spoke, i) => (
             <Link key={spoke.slug} href={`/${spoke.slug}`}>
-              <div
-                className="fade-up group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              <motion.div
+                className="fade-up group relative overflow-hidden rounded-2xl cursor-pointer"
                 style={{
                   transitionDelay: `${i * 80}ms`,
                   border: '1px solid oklch(0.99 0.005 85 / 0.1)',
                 }}
+                whileHover={{ y: -6, boxShadow: '0 24px 60px -8px rgba(0,0,0,0.5)' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+                data-cursor="view"
               >
-                {/* Background image */}
                 <div className="relative h-52 overflow-hidden">
                   <img
                     src={spoke.heroImage}
@@ -1044,18 +1467,14 @@ function SpokeHubSection() {
                   />
                   <div
                     className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(to top, oklch(0.12 0.02 60 / 0.95) 0%, oklch(0.12 0.02 60 / 0.4) 60%, transparent 100%)`,
-                    }}
+                    style={{ background: `linear-gradient(to top, oklch(0.12 0.02 60 / 0.95) 0%, oklch(0.12 0.02 60 / 0.4) 60%, transparent 100%)` }}
                   />
-                  {/* Emoji badge */}
                   <div
                     className="absolute top-3 left-3 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
                     style={{ background: 'oklch(0.99 0.005 85 / 0.15)', backdropFilter: 'blur(8px)' }}
                   >
                     {spoke.heroEmoji}
                   </div>
-                  {/* Domain redirect badge */}
                   <div
                     className="absolute top-3 right-3 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
                     style={{
@@ -1069,62 +1488,42 @@ function SpokeHubSection() {
                     {spoke.externalDomain.split('.')[0]}
                   </div>
                 </div>
-
-                {/* Content */}
-                <div
-                  className="p-4"
-                  style={{ background: 'oklch(0.18 0.01 60)' }}
-                >
-                  <h3
-                    className="font-bold mb-1 text-base"
-                    style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
-                  >
+                <div className="p-4" style={{ background: 'oklch(0.18 0.01 60)' }}>
+                  <h3 className="font-bold mb-1 text-base" style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}>
                     {spoke.title}
                   </h3>
-                  <p
-                    className="text-xs leading-snug mb-3"
-                    style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                  >
+                  <p className="text-xs leading-snug mb-3" style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                     {spoke.tagline}
                   </p>
                   <div className="flex items-center justify-between">
                     <div className="flex gap-3">
                       {spoke.stats.slice(0, 2).map((stat, j) => (
                         <div key={j}>
-                          <div
-                            className="text-sm font-bold"
-                            style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}
-                          >
+                          <div className="text-sm font-bold" style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}>
                             {stat.value}
                           </div>
-                          <div
-                            className="text-[10px]"
-                            style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                          >
+                          <div className="text-[10px]" style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                             {stat.label}
                           </div>
                         </div>
                       ))}
                     </div>
-                    <div
-                      className="flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all"
+                    <motion.div
+                      className="flex items-center gap-1 text-xs font-semibold"
                       style={{ color: spoke.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      whileHover={{ gap: '8px' }}
                     >
                       Explore <ArrowRight className="w-3 h-3" />
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </Link>
           ))}
         </div>
 
-        {/* Bottom note about redirects */}
         <div className="text-center mt-10 fade-up">
-          <p
-            className="text-xs"
-            style={{ color: 'oklch(0.40 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-          >
+          <p className="text-xs" style={{ color: 'oklch(0.40 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
             workfriendlystays.com · stayswithpets.com · rvreadystays.com · evreadystays.com — all redirect here
           </p>
         </div>

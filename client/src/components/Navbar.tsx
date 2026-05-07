@@ -55,8 +55,8 @@ export default function Navbar() {
 
             {/* Logo / Wordmark */}
             <Link href="/">
-              <div className="flex items-center gap-2.5 group">
-                <div className="w-8 h-8 rounded-full bg-[oklch(0.55_0.14_38)] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <div className="flex items-center gap-2.5 group compass-hover">
+                <div className="w-8 h-8 rounded-full bg-[oklch(0.55_0.14_38)] flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                   <Compass className="w-4 h-4 text-[oklch(0.99_0.005_85)]" strokeWidth={2} />
                 </div>
                 <div className="flex flex-col leading-none">

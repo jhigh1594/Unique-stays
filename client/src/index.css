@@ -395,3 +395,121 @@
   background: oklch(0.72 0.10 40 / 0.3);
   color: oklch(0.22 0.01 60);
 }
+
+/* ── Custom Cursor — hide native cursor when custom is active ── */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* ── Stamp Click Effect ── */
+.cursor-stamp {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9995;
+  transform: translate(-50%, -50%);
+}
+.cursor-stamp::before,
+.cursor-stamp::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: stamp-ring 0.65s ease-out forwards;
+}
+.cursor-stamp::before {
+  width: 20px;
+  height: 20px;
+  border: 2px solid oklch(0.55 0.14 38 / 0.5);
+  animation-delay: 0ms;
+}
+.cursor-stamp::after {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid oklch(0.72 0.10 40 / 0.35);
+  animation-delay: 80ms;
+}
+@keyframes stamp-ring {
+  0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
+}
+
+/* ── Polaroid Develop — image enters as sepia blur and resolves ── */
+.polaroid-develop {
+  filter: sepia(0.9) brightness(1.35) blur(6px) saturate(0.3);
+  transition: filter 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.polaroid-develop.developed {
+  filter: sepia(0) brightness(1) blur(0px) saturate(1);
+}
+
+/* ── Section Clip Reveal ── */
+.clip-reveal {
+  clip-path: inset(8% 0 0 0);
+  opacity: 0;
+  transition: clip-path 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.6s ease;
+}
+.clip-reveal.visible {
+  clip-path: inset(0% 0 0 0);
+  opacity: 1;
+}
+
+/* ── Filmstrip drag cursor ── */
+[data-cursor="drag"] {
+  cursor: grab !important;
+}
+[data-cursor="drag"]:active {
+  cursor: grabbing !important;
+}
+.has-custom-cursor [data-cursor="drag"],
+.has-custom-cursor [data-cursor="drag"]:active {
+  cursor: none !important;
+}
+
+/* ── Blueprint grid texture ── */
+.blueprint-grid {
+  background-image:
+    linear-gradient(oklch(0.99 0.005 85 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.99 0.005 85 / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ── Word reveal helper ── */
+.word-overflow {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+/* ── Hero stat counter ── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Compass hover spin ── */
+@keyframes compassSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.compass-hover:hover svg {
+  animation: compassSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Reduced motion overrides ── */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .clip-reveal,
+  .polaroid-develop {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
+  .cursor-stamp {
+    display: none;
+  }
+}

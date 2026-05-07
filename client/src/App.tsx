@@ -1,16 +1,5 @@
 // ============================================================
 // App.tsx — Unique Stays USA
-// Design: Wanderer's Postcard Collection
-// Hub & Spoke Routes:
-//   / → Hub homepage
-//   /unique → Unique stays spoke
-//   /work-friendly → Work-friendly spoke
-//   /pet-friendly → Pet-friendly spoke
-//   /rv-ready → RV-ready spoke
-//   /ev-ready → EV-ready spoke
-//   /directory → Full directory
-//   /about → About
-//   /submit → Submit a Stay
 // ============================================================
 
 import { Toaster } from "@/components/ui/sonner";
@@ -19,6 +8,9 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import CustomCursor from "./components/CustomCursor";
+import LoadingSplash from "./components/LoadingSplash";
+import ScrollProgress from "./components/ScrollProgress";
 import Home from "./pages/Home";
 import Directory from "./pages/Directory";
 import About from "./pages/About";
@@ -29,13 +21,11 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      {/* Hub & Spoke routes */}
       <Route path="/unique">{() => <SpokePage slug="unique" />}</Route>
       <Route path="/work-friendly">{() => <SpokePage slug="work-friendly" />}</Route>
       <Route path="/pet-friendly">{() => <SpokePage slug="pet-friendly" />}</Route>
       <Route path="/rv-ready">{() => <SpokePage slug="rv-ready" />}</Route>
       <Route path="/ev-ready">{() => <SpokePage slug="ev-ready" />}</Route>
-      {/* Other pages */}
       <Route path="/directory" component={Directory} />
       <Route path="/about" component={About} />
       <Route path="/submit" component={Submit} />
@@ -50,6 +40,9 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <LoadingSplash />
+          <CustomCursor />
+          <ScrollProgress />
           <Toaster />
           <Router />
         </TooltipProvider>
