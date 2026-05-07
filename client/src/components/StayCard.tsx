@@ -51,8 +51,7 @@ export default function StayCard({ stay, featured = false, style, accentColor, i
           '--card-tilt': `${tilt}deg`,
           padding: '9px 9px 36px 9px',
           borderRadius: '3px',
-          /* Warm cream — not white. White is a screen. Cream is paper. */
-          background: 'oklch(0.975 0.018 80)',
+          background: 'white',
           backgroundImage: MAT_GRAIN,
           boxShadow: `${shadowX}px 5px 14px rgba(44, 30, 20, 0.16), ${shadowX * 1.5}px 18px 44px -6px rgba(44, 30, 20, 0.20)`,
         } as React.CSSProperties}
