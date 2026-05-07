@@ -481,7 +481,7 @@ export default function Home() {
       {/* ── CATEGORY SHOWCASE ─────────────────────────────── */}
       <section
         className="py-20 grain-overlay"
-        style={{ background: 'oklch(0.22 0.01 60)' }}
+        style={{ background: 'oklch(0.18 0.03 55)' }}
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section label */}
@@ -725,19 +725,9 @@ export default function Home() {
       {/* ── NEWSLETTER ────────────────────────────────────── */}
       <section
         id="newsletter"
-        className="py-24 relative overflow-hidden"
-        style={{ background: 'oklch(0.22 0.01 60)' }}
+        className="py-24 relative overflow-hidden grain-overlay"
+        style={{ background: 'oklch(0.30 0.08 38)' }}
       >
-        {/* Decorative circles */}
-        <div
-          className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-5"
-          style={{ background: 'oklch(0.55 0.14 38)' }}
-        />
-        <div
-          className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full opacity-5"
-          style={{ background: 'oklch(0.85 0.10 45)' }}
-        />
-
         <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6">
           <div className="fade-up">
             <h2
@@ -750,7 +740,7 @@ export default function Home() {
             </h2>
             <p
               className="text-base mb-8 text-left"
-              style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.85 0.05 45)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               New extraordinary stays in your inbox every Tuesday.
             </p>
@@ -772,22 +762,26 @@ export default function Home() {
                 type="email"
                 placeholder="your@email.com"
                 required
-                className="flex-1 px-4 py-3 rounded-xl text-sm outline-none focus:ring-2"
+                className="flex-1 px-4 py-3 text-sm outline-none focus:ring-2"
                 style={{
-                  background: 'oklch(0.30 0.01 60)',
+                  background: 'oklch(0.24 0.06 38)',
                   color: 'oklch(0.93 0.025 75)',
-                  border: '1.5px solid oklch(0.35 0.01 60)',
+                  border: '1.5px solid oklch(0.42 0.09 38)',
+                  borderRadius: '3px',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  '--tw-ring-color': 'oklch(0.55 0.14 38)',
+                  '--tw-ring-color': 'oklch(0.85 0.10 45)',
                 } as React.CSSProperties}
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:opacity-90 hover:shadow-lg flex-shrink-0"
+                className="px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all hover:opacity-90 flex-shrink-0"
                 style={{
-                  background: 'oklch(0.55 0.14 38)',
-                  color: 'oklch(0.99 0.005 85)',
+                  background: 'oklch(0.85 0.10 45)',
+                  color: 'oklch(0.22 0.01 60)',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  borderRadius: '3px',
+                  letterSpacing: '0.1em',
+                  fontSize: '0.7rem',
                 }}
               >
                 Send Me Picks
@@ -795,7 +789,7 @@ export default function Home() {
             </form>
             <p
               className="text-xs mt-4"
-              style={{ color: 'oklch(0.45 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.65 0.05 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               12,000+ subscribers. New picks every Tuesday. Bail anytime.
             </p>

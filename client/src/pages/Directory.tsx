@@ -120,7 +120,7 @@ export default function Directory() {
       {/* ── PAGE HEADER ─────────────────────────────────── */}
       <section
         className="pt-28 pb-12 relative overflow-hidden grain-overlay"
-        style={{ background: 'oklch(0.22 0.01 60)' }}
+        style={{ background: 'oklch(0.20 0.06 155)' }}
       >
         <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -151,7 +151,7 @@ export default function Directory() {
               </span>
               <p
                 className="text-sm"
-                style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.72 0.04 155)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
                 Updated weekly. Every one hand-reviewed.
               </p>
