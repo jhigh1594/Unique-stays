@@ -514,7 +514,7 @@ export default function Home() {
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
                   <div
-                    className="fade-up group col-span-1 md:col-span-2 p-8 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    className="fade-up group col-span-1 md:col-span-2 p-5 md:p-8 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
@@ -556,7 +556,7 @@ export default function Home() {
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
                   <div
-                    className="fade-up group p-6 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    className="fade-up group p-5 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
@@ -598,7 +598,7 @@ export default function Home() {
               return (
                 <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
                   <div
-                    className="fade-up group p-6 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    className="fade-up group p-5 h-36 md:h-auto cursor-pointer transition-all duration-300 hover:brightness-110"
                     style={{
                       background: palette.bg,
                       borderRadius: '3px',
