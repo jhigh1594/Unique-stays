@@ -481,7 +481,7 @@ export default function Home() {
       {/* ── CATEGORY SHOWCASE ─────────────────────────────── */}
       <section
         className="py-20 grain-overlay"
-        style={{ background: 'oklch(0.18 0.03 55)' }}
+        style={{ background: 'oklch(0.22 0.04 75)' }}
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section label */}
