@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'wouter';
-import { Search, SlidersHorizontal, X, MapPin, ChevronDown } from 'lucide-react';
+import { Search, SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StayCard from '@/components/StayCard';
@@ -119,45 +119,42 @@ export default function Directory() {
 
       {/* ── PAGE HEADER ─────────────────────────────────── */}
       <section
-        className="pt-28 pb-12 relative overflow-hidden"
+        className="pt-28 pb-12 relative overflow-hidden grain-overlay"
         style={{ background: 'oklch(0.22 0.01 60)' }}
       >
-        {/* Decorative */}
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 -translate-y-1/2 translate-x-1/2"
-          style={{ background: 'oklch(0.55 0.14 38)' }}
-        />
-
         <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-3"
-                style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                <MapPin className="w-3 h-3 inline mr-1" />
-                The Full Collection
-              </p>
-              <h1
-                className="text-5xl md:text-6xl font-bold leading-tight"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
-              >
-                Every
-                <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}> Extraordinary</span>
-                <br />Stay, In One Place
-              </h1>
-            </div>
-            <div
-              className="text-right"
-              style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            <h1
+              className="font-bold leading-none"
+              style={{
+                fontFamily: 'Fraunces, serif',
+                color: 'oklch(0.99 0.005 85)',
+                fontSize: 'clamp(3.5rem, 9vw, 7rem)',
+                lineHeight: 0.95,
+              }}
             >
-              <div
-                className="text-4xl font-bold"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}
+              The<br />
+              <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>Collection.</span>
+            </h1>
+            <div className="flex flex-col items-start md:items-end gap-3 pb-1">
+              <span
+                className="stamp-badge"
+                style={{
+                  color: 'oklch(0.72 0.10 40)',
+                  borderColor: 'oklch(0.72 0.10 40)',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontSize: '0.75rem',
+                  padding: '5px 12px',
+                }}
               >
-                {filtered.length}
-              </div>
-              <div className="text-sm">stays found</div>
+                {filtered.length} stays
+              </span>
+              <p
+                className="text-sm"
+                style={{ color: 'oklch(0.50 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              >
+                Updated weekly. Every one hand-reviewed.
+              </p>
             </div>
           </div>
         </div>
@@ -172,8 +169,12 @@ export default function Directory() {
           <div className="flex items-center gap-3">
             {/* Search */}
             <div
-              className="flex items-center gap-2 flex-1 max-w-sm px-3 py-2 rounded-xl"
-              style={{ background: 'oklch(0.99 0.005 85)', border: '1.5px solid oklch(0.88 0.025 75)' }}
+              className="flex items-center gap-2 flex-1 max-w-sm px-3 py-2"
+              style={{
+                background: 'oklch(0.99 0.005 85)',
+                border: '1.5px solid oklch(0.88 0.025 75)',
+                borderRadius: '3px',
+              }}
             >
               <Search className="w-4 h-4 flex-shrink-0" style={{ color: 'oklch(0.55 0.14 38)' }} />
               <input
@@ -193,21 +194,24 @@ export default function Directory() {
 
             {/* Filter Toggle */}
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-bold uppercase tracking-wider transition-all"
               style={{
                 background: showFilters ? 'oklch(0.55 0.14 38)' : 'oklch(0.99 0.005 85)',
                 color: showFilters ? 'oklch(0.99 0.005 85)' : 'oklch(0.40 0.03 60)',
-                border: '1.5px solid oklch(0.88 0.025 75)',
+                border: `2px solid ${showFilters ? 'oklch(0.72 0.10 40)' : 'oklch(0.88 0.025 75)'}`,
+                borderRadius: '2px',
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
+                letterSpacing: '0.1em',
+                fontSize: '0.65rem',
               }}
               onClick={() => setShowFilters(!showFilters)}
             >
-              <SlidersHorizontal className="w-4 h-4" />
+              <SlidersHorizontal className="w-3.5 h-3.5" />
               Filters
               {hasActiveFilters && (
                 <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ background: showFilters ? 'oklch(0.99 0.005 85)' : 'oklch(0.55 0.14 38)' }}
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: showFilters ? 'oklch(0.85 0.10 45)' : 'oklch(0.55 0.14 38)' }}
                 />
               )}
             </button>
@@ -217,11 +221,12 @@ export default function Directory() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="appearance-none pl-3 pr-8 py-2 rounded-xl text-sm font-medium outline-none"
+                className="appearance-none pl-3 pr-8 py-2 text-sm font-medium outline-none"
                 style={{
                   background: 'oklch(0.99 0.005 85)',
                   color: 'oklch(0.40 0.03 60)',
                   border: '1.5px solid oklch(0.88 0.025 75)',
+                  borderRadius: '3px',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
                 }}
               >
@@ -239,11 +244,16 @@ export default function Directory() {
             {/* Clear filters */}
             {hasActiveFilters && (
               <button
-                className="text-sm font-medium transition-colors hover:text-[oklch(0.55_0.14_38)]"
-                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                className="stamp-badge transition-colors hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+                style={{
+                  color: 'oklch(0.55 0.14 38)',
+                  borderColor: 'oklch(0.55 0.14 38)',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  background: 'transparent',
+                }}
                 onClick={clearFilters}
               >
-                Clear all
+                Reset
               </button>
             )}
           </div>
@@ -253,15 +263,17 @@ export default function Directory() {
             <div className="mt-4 pt-4 border-t border-[oklch(0.88_0.025_75)] grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Category */}
               <div>
-                <label
-                  className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  Category
+                <label className="block mb-2">
+                  <span
+                    className="stamp-badge"
+                    style={{ color: 'oklch(0.50 0.03 60)', borderColor: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  >
+                    Category
+                  </span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   <button
-                    className={`category-pill ${activeCategory === 'All' ? 'active' : 'inactive'}`}
+                    className={`category-pill stamp ${activeCategory === 'All' ? 'active' : 'inactive'}`}
                     onClick={() => setActiveCategory('All')}
                   >
                     All
@@ -269,7 +281,7 @@ export default function Directory() {
                   {CATEGORIES.slice(0, 5).map((cat) => (
                     <button
                       key={cat.id}
-                      className={`category-pill ${activeCategory === cat.id ? 'active' : 'inactive'}`}
+                      className={`category-pill stamp ${activeCategory === cat.id ? 'active' : 'inactive'}`}
                       onClick={() => setActiveCategory(cat.id)}
                     >
                       {cat.emoji} {cat.label}
@@ -280,17 +292,19 @@ export default function Directory() {
 
               {/* Region */}
               <div>
-                <label
-                  className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  Region
+                <label className="block mb-2">
+                  <span
+                    className="stamp-badge"
+                    style={{ color: 'oklch(0.50 0.03 60)', borderColor: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  >
+                    Region
+                  </span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {REGIONS.map((region) => (
                     <button
                       key={region}
-                      className={`category-pill ${activeRegion === region ? 'active' : 'inactive'}`}
+                      className={`category-pill stamp ${activeRegion === region ? 'active' : 'inactive'}`}
                       onClick={() => setActiveRegion(region)}
                     >
                       {region}
@@ -301,17 +315,19 @@ export default function Directory() {
 
               {/* Platform */}
               <div>
-                <label
-                  className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  Platform
+                <label className="block mb-2">
+                  <span
+                    className="stamp-badge"
+                    style={{ color: 'oklch(0.50 0.03 60)', borderColor: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  >
+                    Platform
+                  </span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {['All', 'Airbnb', 'VRBO', 'Wander', 'Direct'].map((p) => (
                     <button
                       key={p}
-                      className={`category-pill ${activePlatform === p ? 'active' : 'inactive'}`}
+                      className={`category-pill stamp ${activePlatform === p ? 'active' : 'inactive'}`}
                       onClick={() => setActivePlatform(p)}
                     >
                       {p}
@@ -329,33 +345,36 @@ export default function Directory() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {filtered.length === 0 ? (
             <div className="text-center py-24">
-              <div className="text-5xl mb-4">🗺️</div>
               <h3
-                className="text-2xl font-bold mb-2"
+                className="text-5xl md:text-6xl font-bold mb-3"
                 style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
               >
-                No stays found
+                Nothing here.
               </h3>
               <p
-                className="text-sm mb-6"
+                className="text-sm mb-8"
                 style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Try adjusting your filters or search terms
+                Try different filters or broaden your search.
               </p>
               <button
-                className="px-5 py-2.5 rounded-full text-sm font-semibold"
+                className="px-5 py-2.5 text-sm font-bold uppercase tracking-wider transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
                 style={{
-                  background: 'oklch(0.55 0.14 38)',
-                  color: 'oklch(0.99 0.005 85)',
+                  borderRadius: '2px',
+                  border: '2px solid oklch(0.55 0.14 38)',
+                  color: 'oklch(0.55 0.14 38)',
+                  background: 'transparent',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  letterSpacing: '0.1em',
+                  fontSize: '0.7rem',
                 }}
                 onClick={clearFilters}
               >
-                Clear Filters
+                Start Over
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
               {filtered.map((stay, i) => (
                 <div
                   key={stay.id}
