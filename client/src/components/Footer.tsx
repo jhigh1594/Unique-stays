@@ -23,13 +23,13 @@ export default function Footer() {
               <div className="flex flex-col leading-none">
                 <span
                   className="text-[oklch(0.93_0.025_75)] font-bold"
-                  style={{ fontFamily: 'Fraunces, serif', fontSize: '1.15rem' }}
+                  style={{ fontFamily: 'Bitter, Georgia, serif', fontSize: '1.15rem' }}
                 >
                   Unique Stays USA
                 </span>
                 <span
                   className="text-[oklch(0.60_0.03_60)] font-semibold tracking-[0.15em] uppercase"
-                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.55rem' }}
+                  style={{ fontFamily: 'Jost, system-ui, sans-serif', fontSize: '0.55rem' }}
                 >
                   Est. 2024
                 </span>
@@ -37,7 +37,7 @@ export default function Footer() {
             </div>
             <p
               className="text-sm leading-relaxed max-w-xs"
-              style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.65 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               We scour Airbnb, VRBO, Wander, and beyond to find the stays that make you say "I can't believe this is a real place." No hotels. No ordinary. Just extraordinary.
             </p>
@@ -67,7 +67,7 @@ export default function Footer() {
           <div>
             <h4
               className="text-sm font-bold uppercase tracking-widest mb-5"
-              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               Collections
             </h4>
@@ -77,7 +77,7 @@ export default function Footer() {
                   <Link href={`/${spoke.slug}`}>
                     <span
                       className="flex items-center gap-2 text-sm transition-colors hover:text-[oklch(0.72_0.10_40)]"
-                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                     >
                       <span>{spoke.heroEmoji}</span>
                       <span>{spoke.title}</span>
@@ -92,7 +92,7 @@ export default function Footer() {
           <div>
             <h4
               className="text-sm font-bold uppercase tracking-widest mb-5"
-              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               Explore
             </h4>
@@ -109,7 +109,7 @@ export default function Footer() {
                   <Link href={item.href}>
                     <span
                       className="text-sm transition-colors hover:text-[oklch(0.72_0.10_40)]"
-                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                     >
                       {item.label}
                     </span>
@@ -123,7 +123,7 @@ export default function Footer() {
           <div>
             <h4
               className="text-sm font-bold uppercase tracking-widest mb-5"
-              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.72_0.10_40)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               Info
             </h4>
@@ -139,7 +139,7 @@ export default function Footer() {
                   <Link href={item.href}>
                     <span
                       className="text-sm transition-colors hover:text-[oklch(0.72_0.10_40)]"
-                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                     >
                       {item.label}
                     </span>
@@ -156,13 +156,13 @@ export default function Footer() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p
             className="text-xs text-center sm:text-left"
-            style={{ color: 'oklch(0.45 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            style={{ color: 'oklch(0.45 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
           >
             © 2024 Unique Stays USA. All rights reserved.
           </p>
           <p
             className="text-xs text-center sm:text-right max-w-md"
-            style={{ color: 'oklch(0.40 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            style={{ color: 'oklch(0.40 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
           >
             <span className="text-[oklch(0.55_0.14_38)] font-semibold">Affiliate Disclosure:</span> We earn a small commission when you book through our links, at no extra cost to you. This helps us keep the lights on.
           </p>

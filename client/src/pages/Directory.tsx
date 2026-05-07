@@ -1,6 +1,6 @@
 // ============================================================
 // Directory Page — Unique Stays USA
-// Design: Wanderer's Postcard Collection
+// Design: The Naturalist's Field Catalog
 // Full filterable/searchable directory of all curated stays
 // ============================================================
 
@@ -114,7 +114,7 @@ export default function Directory() {
     searchQuery || activeCategory !== 'All' || activeRegion !== 'All' || activePlatform !== 'All';
 
   return (
-    <div className="min-h-screen" style={{ background: 'oklch(0.975 0.012 85)' }}>
+    <div className="min-h-screen" style={{ background: 'oklch(0.94 0.022 78)' }}>
       <Navbar />
 
       {/* ── PAGE HEADER ─────────────────────────────────── */}
@@ -133,14 +133,14 @@ export default function Directory() {
             <div>
               <p
                 className="text-xs font-bold uppercase tracking-widest mb-3"
-                style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Jost, system-ui, sans-serif' }}
               >
                 <MapPin className="w-3 h-3 inline mr-1" />
                 The Full Collection
               </p>
               <h1
                 className="text-5xl md:text-6xl font-bold leading-tight"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
+                style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.99 0.005 85)' }}
               >
                 Every
                 <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}> Extraordinary</span>
@@ -149,11 +149,11 @@ export default function Directory() {
             </div>
             <div
               className="text-right"
-              style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.60 0.02 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               <div
                 className="text-4xl font-bold"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}
+                style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.85 0.10 45)' }}
               >
                 {filtered.length}
               </div>
@@ -166,7 +166,7 @@ export default function Directory() {
       {/* ── SEARCH + FILTERS ────────────────────────────── */}
       <section
         className="sticky top-16 md:top-20 z-30 py-4 border-b border-[oklch(0.88_0.025_75)]"
-        style={{ background: 'oklch(0.975 0.012 85 / 0.97)', backdropFilter: 'blur(12px)' }}
+        style={{ background: 'oklch(0.94 0.022 78 / 0.97)', backdropFilter: 'blur(12px)' }}
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ export default function Directory() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 bg-transparent text-sm outline-none"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: 'oklch(0.22 0.01 60)' }}
+                style={{ fontFamily: 'Jost, system-ui, sans-serif', color: 'oklch(0.22 0.01 60)' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')}>
@@ -198,7 +198,7 @@ export default function Directory() {
                 background: showFilters ? 'oklch(0.55 0.14 38)' : 'oklch(0.99 0.005 85)',
                 color: showFilters ? 'oklch(0.99 0.005 85)' : 'oklch(0.40 0.03 60)',
                 border: '1.5px solid oklch(0.88 0.025 75)',
-                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                fontFamily: 'Jost, system-ui, sans-serif',
               }}
               onClick={() => setShowFilters(!showFilters)}
             >
@@ -222,7 +222,7 @@ export default function Directory() {
                   background: 'oklch(0.99 0.005 85)',
                   color: 'oklch(0.40 0.03 60)',
                   border: '1.5px solid oklch(0.88 0.025 75)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily: 'Jost, system-ui, sans-serif',
                 }}
               >
                 <option value="featured">Featured First</option>
@@ -240,7 +240,7 @@ export default function Directory() {
             {hasActiveFilters && (
               <button
                 className="text-sm font-medium transition-colors hover:text-[oklch(0.55_0.14_38)]"
-                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                 onClick={clearFilters}
               >
                 Clear all
@@ -255,7 +255,7 @@ export default function Directory() {
               <div>
                 <label
                   className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                 >
                   Category
                 </label>
@@ -282,7 +282,7 @@ export default function Directory() {
               <div>
                 <label
                   className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                 >
                   Region
                 </label>
@@ -303,7 +303,7 @@ export default function Directory() {
               <div>
                 <label
                   className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                 >
                   Platform
                 </label>
@@ -332,13 +332,13 @@ export default function Directory() {
               <div className="text-5xl mb-4">🗺️</div>
               <h3
                 className="text-2xl font-bold mb-2"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.22 0.01 60)' }}
               >
                 No stays found
               </h3>
               <p
                 className="text-sm mb-6"
-                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Alegreya, Georgia, serif' }}
               >
                 Try adjusting your filters or search terms
               </p>
@@ -347,7 +347,7 @@ export default function Directory() {
                 style={{
                   background: 'oklch(0.55 0.14 38)',
                   color: 'oklch(0.99 0.005 85)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily: 'Jost, system-ui, sans-serif',
                 }}
                 onClick={clearFilters}
               >
@@ -362,7 +362,7 @@ export default function Directory() {
                   className="fade-up"
                   style={{ transitionDelay: `${Math.min(i * 50, 400)}ms` }}
                 >
-                  <StayCard stay={stay} />
+                  <StayCard stay={stay} variant="compact" />
                 </div>
               ))}
             </div>

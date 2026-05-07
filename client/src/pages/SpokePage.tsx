@@ -1,6 +1,6 @@
 // ============================================================
 // SpokePage — Unique Stays USA
-// Design: Wanderer's Postcard Collection
+// Design: The Naturalist's Field Catalog
 // Reusable page for all 5 spoke sections:
 //   /unique | /work-friendly | /pet-friendly | /rv-ready | /ev-ready
 // ============================================================
@@ -136,7 +136,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
   const siblings = SPOKES.filter((s) => s.slug !== slug);
 
   return (
-    <div className="min-h-screen" style={{ background: 'oklch(0.975 0.012 85)' }}>
+    <div className="min-h-screen" style={{ background: 'oklch(0.94 0.022 78)' }}>
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────── */}
@@ -164,7 +164,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
               <Link href="/">
                 <span
                   className="text-xs font-semibold uppercase tracking-widest opacity-70 hover:opacity-100 transition-opacity"
-                  style={{ color: 'oklch(0.99 0.005 85)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: 'oklch(0.99 0.005 85)', fontFamily: 'Jost, system-ui, sans-serif' }}
                 >
                   Unique Stays USA
                 </span>
@@ -172,83 +172,61 @@ export default function SpokePage({ slug }: SpokePageProps) {
               <ChevronRight className="w-3 h-3 opacity-50" style={{ color: 'oklch(0.99 0.005 85)' }} />
               <span
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: config.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: config.accentColor, fontFamily: 'Jost, system-ui, sans-serif' }}
               >
                 {config.title}
               </span>
             </div>
 
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-2xl">
-                {/* Badge */}
-                <div
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
-                  style={{
-                    background: `${config.accentColor} / 0.2`,
-                    color: 'oklch(0.99 0.005 85)',
-                    backdropFilter: 'blur(8px)',
-                    border: `1px solid oklch(0.99 0.005 85 / 0.2)`,
-                  }}
-                >
-                  <span>{config.heroEmoji}</span>
-                  <span>Curated by Unique Stays USA</span>
-                </div>
-
-                <h1
-                  className="text-5xl md:text-6xl font-bold leading-tight mb-4"
-                  style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
-                >
-                  {config.title.split(' ').map((word, i, arr) =>
-                    i === arr.length - 1 ? (
-                      <span key={i} style={{ fontStyle: 'italic', color: 'oklch(0.92 0.08 75)' }}>
-                        {' '}{word}
-                      </span>
-                    ) : (
-                      <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
-                    )
-                  )}
-                </h1>
-
-                <p
-                  className="text-lg leading-relaxed max-w-xl"
-                  style={{ color: 'oklch(0.85 0.01 85)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  {config.description}
-                </p>
-
-                {/* External domain badge */}
-                <div
-                  className="inline-flex items-center gap-1.5 mt-4 px-3 py-1.5 rounded-full text-xs font-medium"
-                  style={{
-                    background: 'oklch(0.99 0.005 85 / 0.12)',
-                    color: 'oklch(0.85 0.01 85)',
-                    border: '1px solid oklch(0.99 0.005 85 / 0.2)',
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  }}
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  {config.externalDomain} redirects here
-                </div>
+            <div className="max-w-2xl">
+              {/* Badge */}
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+                style={{
+                  background: `${config.accentColor} / 0.2`,
+                  color: 'oklch(0.99 0.005 85)',
+                  backdropFilter: 'blur(8px)',
+                  border: `1px solid oklch(0.99 0.005 85 / 0.2)`,
+                }}
+              >
+                <span>{config.heroEmoji}</span>
+                <span>Curated by Unique Stays USA</span>
               </div>
 
-              {/* Stats */}
-              <div className="flex gap-6">
-                {config.stats.map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div
-                      className="text-3xl font-bold"
-                      style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.92 0.08 75)' }}
-                    >
-                      {stat.value}
-                    </div>
-                    <div
-                      className="text-xs mt-0.5 opacity-70"
-                      style={{ color: 'oklch(0.99 0.005 85)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                    >
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
+              <h1
+                className="text-5xl md:text-6xl font-bold leading-tight mb-4"
+                style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.99 0.005 85)' }}
+              >
+                {config.title.split(' ').map((word, i, arr) =>
+                  i === arr.length - 1 ? (
+                    <span key={i} style={{ fontStyle: 'italic', color: 'oklch(0.92 0.08 75)' }}>
+                      {' '}{word}
+                    </span>
+                  ) : (
+                    <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
+                  )
+                )}
+              </h1>
+
+              <p
+                className="text-lg leading-relaxed max-w-xl"
+                style={{ color: 'oklch(0.85 0.01 85)', fontFamily: 'Alegreya, Georgia, serif' }}
+              >
+                {config.description}
+              </p>
+
+              {/* External domain badge */}
+              <div
+                className="inline-flex items-center gap-1.5 mt-4 px-3 py-1.5 rounded-full text-xs font-medium"
+                style={{
+                  background: 'oklch(0.99 0.005 85 / 0.12)',
+                  color: 'oklch(0.85 0.01 85)',
+                  border: '1px solid oklch(0.99 0.005 85 / 0.2)',
+                  fontFamily: 'Jost, system-ui, sans-serif',
+                }}
+              >
+                <ExternalLink className="w-3 h-3" />
+                {config.externalDomain} redirects here
               </div>
             </div>
           </div>
@@ -258,7 +236,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
       {/* ── SEARCH + FILTERS ─────────────────────────────── */}
       <section
         className="sticky top-16 md:top-20 z-30 py-3 border-b border-[oklch(0.88_0.025_75)]"
-        style={{ background: 'oklch(0.975 0.012 85 / 0.97)', backdropFilter: 'blur(12px)' }}
+        style={{ background: 'oklch(0.94 0.022 78 / 0.97)', backdropFilter: 'blur(12px)' }}
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row gap-3">
@@ -274,7 +252,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 bg-transparent text-sm outline-none"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: 'oklch(0.22 0.01 60)' }}
+                style={{ fontFamily: 'Jost, system-ui, sans-serif', color: 'oklch(0.22 0.01 60)' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')}>
@@ -294,7 +272,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                     background: activeFilter === f ? config.accentColor : 'oklch(0.99 0.005 85)',
                     color: activeFilter === f ? 'oklch(0.99 0.005 85)' : 'oklch(0.40 0.03 60)',
                     border: `1.5px solid ${activeFilter === f ? config.accentColor : 'oklch(0.88 0.025 75)'}`,
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontFamily: 'Jost, system-ui, sans-serif',
                   }}
                 >
                   {f}
@@ -310,7 +288,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                   background: activeRegion !== 'All' ? config.accentColor : 'oklch(0.99 0.005 85)',
                   color: activeRegion !== 'All' ? 'oklch(0.99 0.005 85)' : 'oklch(0.40 0.03 60)',
                   border: `1.5px solid ${activeRegion !== 'All' ? config.accentColor : 'oklch(0.88 0.025 75)'}`,
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily: 'Jost, system-ui, sans-serif',
                 }}
               >
                 {REGIONS.map((r) => (
@@ -322,7 +300,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
             {/* Count */}
             <div
               className="ml-auto text-sm font-medium self-center whitespace-nowrap"
-              style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               {filtered.length} stays
             </div>
@@ -338,13 +316,13 @@ export default function SpokePage({ slug }: SpokePageProps) {
               <div className="text-5xl mb-4">{config.heroEmoji}</div>
               <h3
                 className="text-2xl font-bold mb-2"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.22 0.01 60)' }}
               >
                 No stays found
               </h3>
               <p
                 className="text-sm mb-6"
-                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Alegreya, Georgia, serif' }}
               >
                 Try adjusting your filters or search terms
               </p>
@@ -353,7 +331,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                 style={{
                   background: config.accentColor,
                   color: 'oklch(0.99 0.005 85)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontFamily: 'Jost, system-ui, sans-serif',
                 }}
                 onClick={() => { setSearchQuery(''); setActiveFilter('All'); setActiveRegion('All'); }}
               >
@@ -368,7 +346,7 @@ export default function SpokePage({ slug }: SpokePageProps) {
                   className="fade-up"
                   style={{ transitionDelay: `${Math.min(i * 50, 400)}ms` }}
                 >
-                  <StayCard stay={stay} accentColor={config.accentColor} />
+                  <StayCard stay={stay} variant="compact" accentColor={config.accentColor} />
                 </div>
               ))}
             </div>
@@ -388,13 +366,13 @@ export default function SpokePage({ slug }: SpokePageProps) {
           <div className="text-center mb-10 fade-up">
             <p
               className="text-xs font-bold uppercase tracking-widest mb-2"
-              style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
             >
               More from Unique Stays USA
             </p>
             <h2
               className="text-3xl font-bold"
-              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+              style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.22 0.01 60)' }}
             >
               Explore Other Collections
             </h2>
@@ -414,19 +392,19 @@ export default function SpokePage({ slug }: SpokePageProps) {
                   <div className="text-3xl mb-3">{s.heroEmoji}</div>
                   <h3
                     className="font-bold text-sm mb-1"
-                    style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+                    style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.22 0.01 60)' }}
                   >
                     {s.title}
                   </h3>
                   <p
                     className="text-xs leading-snug opacity-70"
-                    style={{ color: 'oklch(0.35 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{ color: 'oklch(0.35 0.02 60)', fontFamily: 'Alegreya, Georgia, serif', fontStyle: 'italic' }}
                   >
                     {s.tagline}
                   </p>
                   <div
                     className="mt-3 flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all"
-                    style={{ color: s.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{ color: s.accentColor, fontFamily: 'Jost, system-ui, sans-serif' }}
                   >
                     Explore <ArrowRight className="w-3 h-3" />
                   </div>
@@ -484,13 +462,13 @@ function SpokeCallout({ slug, config }: { slug: SpokeSlug; config: SpokeConfig }
           <div className="max-w-xl">
             <h2
               className="text-3xl font-bold mb-3"
-              style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
+              style={{ fontFamily: 'Bitter, Georgia, serif', color: 'oklch(0.22 0.01 60)' }}
             >
               {c.title}
             </h2>
             <p
               className="text-sm leading-relaxed"
-              style={{ color: 'oklch(0.40 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ color: 'oklch(0.40 0.03 60)', fontFamily: 'Alegreya, Georgia, serif' }}
             >
               {c.body}
             </p>
@@ -501,7 +479,7 @@ function SpokeCallout({ slug, config }: { slug: SpokeSlug; config: SpokeConfig }
               style={{
                 background: config.accentColor,
                 color: 'oklch(0.99 0.005 85)',
-                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                fontFamily: 'Jost, system-ui, sans-serif',
               }}
             >
               {c.cta} <ArrowRight className="w-4 h-4" />

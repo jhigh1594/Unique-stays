@@ -46,7 +46,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-[oklch(0.975_0.012_85/0.97)] backdrop-blur-md shadow-[0_1px_0_0_oklch(0.88_0.025_75)]'
+            ? 'bg-[oklch(0.94_0.022_78/0.97)] backdrop-blur-md shadow-[0_1px_0_0_oklch(0.88_0.025_75)]'
             : 'bg-transparent'
         }`}
       >
@@ -63,7 +63,7 @@ export default function Navbar() {
                   <span
                     className="font-bold tracking-tight"
                     style={{
-                      fontFamily: 'Fraunces, serif',
+                      fontFamily: 'Bitter, Georgia, serif',
                       fontSize: '1.1rem',
                       letterSpacing: '-0.01em',
                       color: scrolled || !['/', ...SPOKES.map(s => `/${s.slug}`)].includes(location)
@@ -76,7 +76,7 @@ export default function Navbar() {
                   <span
                     className="font-semibold tracking-[0.15em] uppercase"
                     style={{
-                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                      fontFamily: 'Jost, system-ui, sans-serif',
                       fontSize: '0.55rem',
                       color: 'oklch(0.38 0.09 155)',
                     }}
@@ -99,7 +99,7 @@ export default function Navbar() {
                         ? 'text-[oklch(0.40_0.03_60)] hover:text-[oklch(0.55_0.14_38)]'
                         : 'text-[oklch(0.90_0.01_85)] hover:text-white'
                   }`}
-                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ fontFamily: 'Jost, system-ui, sans-serif' }}
                   onClick={() => setCollectionsOpen(!collectionsOpen)}
                 >
                   Collections
@@ -120,7 +120,7 @@ export default function Navbar() {
                     <div className="p-4">
                       <p
                         className="text-xs font-bold uppercase tracking-widest mb-3 px-2"
-                        style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                        style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                       >
                         Browse by Collection
                       </p>
@@ -140,20 +140,20 @@ export default function Navbar() {
                               <div className="flex-1 min-w-0">
                                 <div
                                   className="text-sm font-semibold"
-                                  style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                                  style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                                 >
                                   {spoke.title}
                                 </div>
                                 <div
                                   className="text-xs truncate"
-                                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                                  style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                                 >
                                   {spoke.tagline}
                                 </div>
                               </div>
                               <div
                                 className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
-                                style={{ color: spoke.accentColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                                style={{ color: spoke.accentColor, fontFamily: 'Jost, system-ui, sans-serif' }}
                               >
                                 Explore →
                               </div>
@@ -164,12 +164,12 @@ export default function Navbar() {
                     </div>
                     <div
                       className="px-4 py-3 border-t border-[oklch(0.88_0.025_75)]"
-                      style={{ background: 'oklch(0.975 0.012 85)' }}
+                      style={{ background: 'oklch(0.94 0.022 78)' }}
                     >
                       <Link href="/directory">
                         <div
                           className="flex items-center justify-between text-sm font-semibold cursor-pointer hover:opacity-80 transition-opacity"
-                          style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                          style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Jost, system-ui, sans-serif' }}
                           onClick={() => setCollectionsOpen(false)}
                         >
                           <span>View Full Directory (All Stays)</span>
@@ -191,7 +191,7 @@ export default function Navbar() {
                           ? 'text-[oklch(0.40_0.03_60)] hover:text-[oklch(0.55_0.14_38)]'
                           : 'text-[oklch(0.90_0.01_85)] hover:text-white'
                     }`}
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{ fontFamily: 'Jost, system-ui, sans-serif' }}
                   >
                     {link.label}
                     <span
@@ -209,7 +209,7 @@ export default function Navbar() {
               <a
                 href="#newsletter"
                 className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[oklch(0.55_0.14_38)] text-[oklch(0.99_0.005_85)] hover:bg-[oklch(0.48_0.14_38)] transition-all duration-200 hover:shadow-md"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ fontFamily: 'Jost, system-ui, sans-serif' }}
               >
                 Get Picks
               </a>
@@ -238,13 +238,13 @@ export default function Navbar() {
           />
           <div
             className="absolute top-0 right-0 bottom-0 w-80 shadow-2xl flex flex-col pt-20 pb-8 overflow-y-auto"
-            style={{ background: 'oklch(0.975 0.012 85)' }}
+            style={{ background: 'oklch(0.94 0.022 78)' }}
           >
             {/* Collections */}
             <div className="px-4 mb-4">
               <p
                 className="text-xs font-bold uppercase tracking-widest mb-2 px-2"
-                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
               >
                 Collections
               </p>
@@ -258,13 +258,13 @@ export default function Navbar() {
                     <div>
                       <div
                         className="text-sm font-semibold"
-                        style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                        style={{ color: 'oklch(0.22 0.01 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                       >
                         {spoke.title}
                       </div>
                       <div
                         className="text-xs"
-                        style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                        style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Jost, system-ui, sans-serif' }}
                       >
                         {spoke.tagline}
                       </div>
@@ -284,7 +284,7 @@ export default function Navbar() {
                 <Link key={link.href} href={link.href}>
                   <span
                     className="block py-2.5 px-3 rounded-xl text-sm font-medium text-[oklch(0.30_0.02_60)] hover:bg-[oklch(0.93_0.025_75)] hover:text-[oklch(0.55_0.14_38)] transition-all"
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{ fontFamily: 'Jost, system-ui, sans-serif' }}
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
@@ -297,7 +297,7 @@ export default function Navbar() {
               <a
                 href="#newsletter"
                 className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold bg-[oklch(0.55_0.14_38)] text-[oklch(0.99_0.005_85)] hover:bg-[oklch(0.48_0.14_38)] transition-all"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ fontFamily: 'Jost, system-ui, sans-serif' }}
                 onClick={() => setMobileOpen(false)}
               >
                 Get Weekly Picks

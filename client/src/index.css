@@ -1,13 +1,13 @@
 /* ============================================================
    UNIQUE STAYS USA — Design System
-   Theme: "The Wanderer's Postcard Collection"
-   Design Movement: Mid-century modernism meets contemporary travel editorial
-   
+   Theme: "The Naturalist's Field Catalog"
+   Design Direction: Field guide / naturalist — tactile, handcrafted, bookish
+
    Core Principles:
-   - Warm off-white + terracotta + forest green + sky blue palette
-   - Fraunces editorial serif for headlines, Plus Jakarta Sans for body
-   - Asymmetric editorial layouts with postcard/collage metaphor
-   - Whimsical but sophisticated — warmth through composition
+   - Parchment background + terracotta (Committed) + ink navy + ochre
+   - Bitter slab for headlines, Alegreya humanist serif for body, Jost for UI
+   - Terracotta gets real surface area — section backgrounds, not just badges
+   - Editorial pull quotes at display scale as owned visual element
    ============================================================ */
 
 @import "tailwindcss";
@@ -55,29 +55,36 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Brand Colors */
-  --color-cream: oklch(0.975 0.012 85);
-  --color-cream-dark: oklch(0.945 0.018 80);
+  /* Brand Colors — Field Guide Palette */
+  --color-parchment: oklch(0.94 0.022 78);
+  --color-parchment-dark: oklch(0.91 0.028 75);
   --color-terracotta: oklch(0.55 0.14 38);
   --color-terracotta-light: oklch(0.72 0.10 40);
-  --color-forest: oklch(0.38 0.09 155);
-  --color-forest-light: oklch(0.52 0.08 155);
-  --color-sky: oklch(0.56 0.09 220);
+  --color-ink-navy: oklch(0.25 0.06 240);
+  --color-ochre: oklch(0.68 0.12 68);
+  --color-ochre-light: oklch(0.82 0.08 70);
+  --color-botanical: oklch(0.40 0.10 148);
+  --color-botanical-light: oklch(0.55 0.09 148);
   --color-sand: oklch(0.88 0.04 75);
   --color-charcoal: oklch(0.22 0.01 60);
   --color-warm-white: oklch(0.99 0.005 85);
+  /* Legacy aliases */
+  --color-cream: oklch(0.94 0.022 78);
+  --color-cream-dark: oklch(0.91 0.028 75);
+  --color-forest: oklch(0.40 0.10 148);
+  --color-forest-light: oklch(0.55 0.09 148);
 }
 
 :root {
   /* Unique Stays USA Color Palette */
   --radius: 0.5rem;
   
-  /* Warm cream background */
-  --background: oklch(0.975 0.012 85);
+  /* Parchment background — aged paper, not digital cream */
+  --background: oklch(0.94 0.022 78);
   --foreground: oklch(0.22 0.01 60);
-  
-  /* Card: slightly warmer cream */
-  --card: oklch(0.99 0.005 85);
+
+  /* Card: warm off-white */
+  --card: oklch(0.97 0.015 80);
   --card-foreground: oklch(0.22 0.01 60);
   
   --popover: oklch(0.99 0.005 85);
@@ -87,8 +94,8 @@
   --primary: oklch(0.55 0.14 38);
   --primary-foreground: oklch(0.99 0.005 85);
   
-  /* Secondary: Forest Green */
-  --secondary: oklch(0.38 0.09 155);
+  /* Secondary: Botanical Green */
+  --secondary: oklch(0.40 0.10 148);
   --secondary-foreground: oklch(0.99 0.005 85);
   
   /* Muted: Warm sand */
@@ -135,13 +142,13 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Alegreya', Georgia, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Bitter', Georgia, serif;
   }
   
   button:not(:disabled),
@@ -188,20 +195,32 @@
 
   /* ── Typography Utilities ── */
   .font-display {
-    font-family: 'Fraunces', serif;
+    font-family: 'Bitter', Georgia, serif;
   }
 
   .font-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Alegreya', Georgia, serif;
+  }
+
+  .font-ui {
+    font-family: 'Jost', system-ui, sans-serif;
+  }
+
+  /* ── Editorial Quote — large display italic ── */
+  .editorial-quote {
+    font-family: 'Bitter', Georgia, serif;
+    font-style: italic;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   /* ── Card Hover Effect ── */
   .stay-card {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
   }
   .stay-card:hover {
-    transform: translateY(-6px) rotate(0.3deg);
-    box-shadow: 0 20px 60px -10px rgba(44, 30, 20, 0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px -8px rgba(44, 30, 20, 0.18);
   }
 
   /* ── Polaroid Card ── */
@@ -222,7 +241,7 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Jost', system-ui, sans-serif;
   }
 
   /* ── Decorative Divider ── */
@@ -277,7 +296,7 @@
     transition: all 0.2s ease;
     cursor: pointer;
     white-space: nowrap;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Jost', system-ui, sans-serif;
   }
   .category-pill:hover {
     transform: translateY(-1px);
@@ -348,7 +367,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: oklch(0.975 0.012 85);
+  background: oklch(0.94 0.022 78);
 }
 ::-webkit-scrollbar-thumb {
   background: oklch(0.72 0.10 40);
