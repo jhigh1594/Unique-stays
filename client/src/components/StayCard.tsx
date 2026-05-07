@@ -33,45 +33,48 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
       className="group block"
       style={style}
     >
+      {/* Polaroid frame — white mat, square-ish corners, thick bottom */}
       <div
-        className={`stay-card bg-white overflow-hidden rounded-2xl border border-[oklch(0.92_0.02_75)] ${
-          featured ? 'shadow-[0_8px_40px_-8px_rgba(44,30,20,0.18)]' : 'shadow-[0_2px_16px_-4px_rgba(44,30,20,0.12)]'
-        }`}
+        className="stay-card bg-white"
+        style={{
+          padding: '9px 9px 32px 9px',
+          borderRadius: '3px',
+          boxShadow: '0 6px 28px -4px rgba(44, 30, 20, 0.22), 0 2px 8px rgba(44, 30, 20, 0.09)',
+        }}
       >
-        {/* Image */}
-        <div className={`relative overflow-hidden ${featured ? 'h-64' : 'h-52'}`}>
+        {/* Photo */}
+        <div className={`relative overflow-hidden ${featured ? 'h-64' : 'h-52'}`} style={{ borderRadius: '1px' }}>
           <img
             src={stay.image}
             alt={stay.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
-          {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
           {/* Top badges */}
-          <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
+          <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
             {stay.editorsPick && (
               <span
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold"
+                className="stamp-badge"
                 style={{
                   background: 'oklch(0.55 0.14 38)',
                   color: 'oklch(0.99 0.005 85)',
+                  borderColor: 'oklch(0.72 0.10 40)',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  letterSpacing: '0.04em',
                 }}
               >
-                ✦ Editor's Pick
+                ✦ Pick
               </span>
             )}
             {stay.isNew && (
               <span
-                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold"
+                className="stamp-badge"
                 style={{
                   background: 'oklch(0.38 0.09 155)',
                   color: 'oklch(0.99 0.005 85)',
+                  borderColor: 'oklch(0.52 0.08 155)',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  letterSpacing: '0.04em',
                 }}
               >
                 New
@@ -82,12 +85,13 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
           {/* Platform badge */}
           <div className="absolute top-3 right-3">
             <span
-              className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold"
+              className="stamp-badge"
               style={{
                 background: platform.bg,
                 color: platform.text,
+                borderColor: platform.text,
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
-                letterSpacing: '0.05em',
+                opacity: 0.92,
               }}
             >
               {platform.label}
@@ -97,11 +101,12 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
           {/* Price bottom right */}
           <div className="absolute bottom-3 right-3">
             <span
-              className="px-2.5 py-1 rounded-lg text-sm font-bold text-white"
+              className="px-2.5 py-1 text-sm font-bold text-white"
               style={{
                 background: 'rgba(15,10,5,0.65)',
                 backdropFilter: 'blur(4px)',
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
+                borderRadius: '2px',
               }}
             >
               ${stay.price}<span className="font-normal text-white/80 text-xs">/night</span>
@@ -109,19 +114,17 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-4">
-          {/* Category tag */}
-          <div className="flex items-center justify-between mb-2">
+        {/* Caption zone — lives inside the polaroid white mat */}
+        <div className="pt-3 px-1">
+          <div className="flex items-center justify-between mb-1.5">
             <span
               className="text-xs font-semibold uppercase tracking-widest"
               style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               {stay.category}
             </span>
-            {/* Rating */}
             <div className="flex items-center gap-1">
-              <Star className="w-3.5 h-3.5 fill-[oklch(0.72_0.10_40)] text-[oklch(0.72_0.10_40)]" />
+              <Star className="w-3 h-3 fill-[oklch(0.72_0.10_40)] text-[oklch(0.72_0.10_40)]" />
               <span
                 className="text-xs font-bold"
                 style={{ color: 'oklch(0.30 0.02 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
@@ -130,34 +133,24 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
               </span>
               <span
                 className="text-xs"
-                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.60 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
                 ({stay.reviewCount})
               </span>
             </div>
           </div>
 
-          {/* Title */}
           <h3
             className={`font-bold leading-tight mb-1 group-hover:text-[oklch(0.55_0.14_38)] transition-colors ${
-              featured ? 'text-xl' : 'text-lg'
+              featured ? 'text-xl' : 'text-base'
             }`}
             style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
           >
             {stay.title}
           </h3>
 
-          {/* Subtitle */}
-          <p
-            className="text-sm italic mb-2"
-            style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Fraunces, serif' }}
-          >
-            {stay.subtitle}
-          </p>
-
-          {/* Location */}
-          <div className="flex items-center gap-1 mb-3">
-            <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'oklch(0.55 0.14 38)' }} />
+          <div className="flex items-center gap-1 mb-2.5">
+            <MapPin className="w-3 h-3 flex-shrink-0" style={{ color: 'oklch(0.55 0.14 38)' }} />
             <span
               className="text-xs"
               style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
@@ -166,40 +159,22 @@ export default function StayCard({ stay, featured = false, style, accentColor }:
             </span>
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {stay.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{
-                  background: 'oklch(0.93 0.025 75)',
-                  color: 'oklch(0.40 0.03 60)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-3 border-t border-[oklch(0.92_0.02_75)]">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <Users className="w-3.5 h-3.5" style={{ color: 'oklch(0.55 0.03 60)' }} />
+              <Users className="w-3 h-3" style={{ color: 'oklch(0.60 0.03 60)' }} />
               <span
                 className="text-xs"
-                style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Sleeps {stay.sleeps} · {stay.bedrooms} bed{stay.bedrooms !== 1 ? 's' : ''}
+                Sleeps {stay.sleeps}
               </span>
             </div>
             <span
-              className="inline-flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all"
-              style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              className="inline-flex items-center gap-1 text-xs font-bold group-hover:gap-2 transition-all uppercase tracking-wider"
+              style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem' }}
             >
               View Stay
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-2.5 h-2.5" />
             </span>
           </div>
         </div>

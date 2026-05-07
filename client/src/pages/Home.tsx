@@ -48,7 +48,7 @@ export default function Home() {
       {/* ── HERO SECTION ──────────────────────────────────── */}
       <section className="relative min-h-[100svh] flex items-end overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 grain-overlay">
           <img
             src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-treehouse-JWbjZXvAKxUiXAg4QS7BnL.webp"
             alt="Enchanted treehouse in redwood forest"
@@ -247,8 +247,9 @@ export default function Home() {
             </div>
             <Link href="/directory">
               <button
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
                 style={{
+                  borderRadius: '2px',
                   borderColor: 'oklch(0.55 0.14 38)',
                   color: 'oklch(0.55 0.14 38)',
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
@@ -284,18 +285,19 @@ export default function Home() {
                     {/* Badges */}
                     <div className="absolute top-5 left-5 flex gap-2">
                       <span
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold"
+                        className="stamp-badge"
                         style={{
                           background: 'oklch(0.55 0.14 38)',
                           color: 'oklch(0.99 0.005 85)',
+                          borderColor: 'oklch(0.72 0.10 40)',
                           fontFamily: 'Plus Jakarta Sans, sans-serif',
                         }}
                       >
                         ✦ Editor's Pick
                       </span>
                       <span
-                        className="px-3 py-1.5 rounded-full text-xs font-bold"
-                        style={{ background: '#FFE4DE', color: '#FF5A5F', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                        className="stamp-badge"
+                        style={{ background: '#FFE4DE', color: '#FF5A5F', borderColor: '#FF5A5F', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                       >
                         Airbnb
                       </span>
@@ -364,7 +366,7 @@ export default function Home() {
 
       {/* ── EDITORIAL BANNER ──────────────────────────────── */}
       <section
-        className="py-20 relative overflow-hidden"
+        className="py-20 relative overflow-hidden grain-overlay"
         style={{ background: 'oklch(0.38 0.09 155)' }}
       >
         {/* Decorative background pattern */}
@@ -379,62 +381,48 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div className="fade-up">
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-4"
-                style={{ color: 'oklch(0.85 0.10 45)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                Our Philosophy
-              </p>
+              {/* Stamp-style label */}
+              <div className="mb-6">
+                <span
+                  className="stamp-badge"
+                  style={{
+                    color: 'oklch(0.85 0.10 45)',
+                    borderColor: 'oklch(0.85 0.10 45)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}
+                >
+                  Our Philosophy
+                </span>
+              </div>
               <h2
-                className="text-4xl md:text-5xl font-bold leading-tight mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
                 style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.99 0.005 85)' }}
               >
-                Not just a place to sleep.
+                Not just a place
+                <br />to sleep.
                 <br />
                 <span style={{ fontStyle: 'italic', color: 'oklch(0.85 0.10 45)' }}>
                   A story to tell.
                 </span>
               </h2>
               <p
-                className="text-base leading-relaxed mb-8"
-                style={{ color: 'oklch(0.85 0.04 155)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                className="text-base leading-relaxed"
+                style={{ color: 'oklch(0.85 0.04 155)', fontFamily: 'Plus Jakarta Sans, sans-serif', maxWidth: '440px' }}
               >
                 We believe the best travel memories aren't made in hotel rooms — they're made in the places that make you gasp when you arrive. We spend hundreds of hours finding them so you don't have to.
               </p>
-              <div className="grid grid-cols-3 gap-6">
-                {[
-                  { num: '400+', label: 'Curated Stays' },
-                  { num: '48', label: 'States' },
-                  { num: '10', label: 'Categories' },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <div
-                      className="text-3xl font-bold mb-1"
-                      style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.85 0.10 45)' }}
-                    >
-                      {s.num}
-                    </div>
-                    <div
-                      className="text-sm"
-                      style={{ color: 'oklch(0.75 0.04 155)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                    >
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            {/* Right: Postcard collage image */}
-            <div className="fade-up" style={{ transitionDelay: '150ms' }}>
+            {/* Right: Postcard-style image with hard tilt */}
+            <div className="fade-up flex justify-center" style={{ transitionDelay: '150ms' }}>
               <div
-                className="rounded-2xl overflow-hidden shadow-2xl"
-                style={{ transform: 'rotate(1.5deg)' }}
+                className="overflow-hidden shadow-2xl"
+                style={{ transform: 'rotate(5deg)', borderRadius: '3px', maxWidth: '420px', width: '100%' }}
               >
                 <img
                   src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-banner-mhiZ34LNJ6enqJKTL8o9M4.webp"
                   alt="Unique stays collage"
-                  className="w-full h-72 object-cover"
+                  className="w-full h-80 object-cover"
                 />
               </div>
             </div>
@@ -445,19 +433,22 @@ export default function Home() {
       {/* ── EDITOR'S PICKS ────────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 fade-up">
-            <p
-              className="text-xs font-bold uppercase tracking-widest mb-3"
-              style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-            >
-              ✦ Hand-Picked by Our Team
-            </p>
+          {/* Full-bleed editorial header — no eyebrow, just weight */}
+          <div className="mb-12 fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <h2
-              className="text-4xl md:text-5xl font-bold"
+              className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none"
               style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
             >
-              Editor's <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}>Picks</span>
+              Editor's
+              <br />
+              <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}>Picks.</span>
             </h2>
+            <p
+              className="text-sm max-w-xs pb-2"
+              style={{ color: 'oklch(0.50 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif', lineHeight: 1.6 }}
+            >
+              Hand-reviewed by our team. Every one of these made us say <em>"I need to go here."</em>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -472,55 +463,154 @@ export default function Home() {
 
       {/* ── CATEGORY SHOWCASE ─────────────────────────────── */}
       <section
-        className="py-20"
-        style={{ background: 'oklch(0.93 0.025 75)' }}
+        className="py-20 grain-overlay"
+        style={{ background: 'oklch(0.22 0.01 60)' }}
       >
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 fade-up">
-            <div>
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-2"
-                style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          {/* Section label */}
+          <div className="flex items-center gap-4 mb-10 fade-up">
+            <span
+              className="stamp-badge"
+              style={{ color: 'oklch(0.72 0.10 40)', borderColor: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            >
+              Every Kind of Extraordinary
+            </span>
+            <div className="flex-1 h-px" style={{ background: 'oklch(0.99 0.005 85 / 0.1)' }} />
+            <Link href="/directory">
+              <span
+                className="text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+                style={{ color: 'oklch(0.72 0.10 40)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Every Kind of Extraordinary
-              </p>
-              <h2
-                className="text-4xl md:text-5xl font-bold"
-                style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
-              >
-                Browse by
-                <span style={{ fontStyle: 'italic', color: 'oklch(0.38 0.09 155)' }}> Category</span>
-              </h2>
-            </div>
+                All stays <ChevronRight className="w-4 h-4" />
+              </span>
+            </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {CATEGORIES.map((cat, i) => (
-              <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
-                <div
-                  className="fade-up group p-5 rounded-2xl text-center cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  style={{
-                    background: 'oklch(0.99 0.005 85)',
-                    transitionDelay: `${i * 50}ms`,
-                    border: '1.5px solid oklch(0.88 0.025 75)',
-                  }}
-                >
-                  <div className="text-3xl mb-3">{cat.emoji}</div>
+          {/* Magazine mosaic — varying visual weights */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {/* Row 1: two wide tiles */}
+            {CATEGORIES.slice(0, 2).map((cat, i) => {
+              const palette = [
+                { bg: 'oklch(0.55 0.14 38)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.85 0.10 45)' },
+                { bg: 'oklch(0.38 0.09 155)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.72 0.12 155)' },
+              ][i];
+              return (
+                <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
                   <div
-                    className="text-sm font-semibold mb-1 group-hover:text-[oklch(0.55_0.14_38)] transition-colors"
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: 'oklch(0.25 0.01 60)' }}
+                    className="fade-up group col-span-1 md:col-span-2 p-8 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    style={{
+                      background: palette.bg,
+                      borderRadius: '3px',
+                      transitionDelay: `${i * 60}ms`,
+                      minHeight: '160px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
                   >
-                    {cat.label}
+                    <div className="text-4xl">{cat.emoji}</div>
+                    <div>
+                      <div
+                        className="text-2xl md:text-3xl font-bold mb-1"
+                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
+                      >
+                        {cat.label}
+                      </div>
+                      <div
+                        className="stamp-badge"
+                        style={{ color: palette.count, borderColor: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        {cat.count} stays
+                      </div>
+                    </div>
                   </div>
+                </Link>
+              );
+            })}
+
+            {/* Row 2: four standard tiles */}
+            {CATEGORIES.slice(2, 6).map((cat, i) => {
+              const palette = [
+                { bg: 'oklch(0.30 0.01 60)', text: 'oklch(0.93 0.025 75)', count: 'oklch(0.60 0.02 60)' },
+                { bg: 'oklch(0.72 0.10 40)', text: 'oklch(0.15 0.01 60)', count: 'oklch(0.30 0.04 40)' },
+                { bg: 'oklch(0.56 0.09 220)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.82 0.06 220)' },
+                { bg: 'oklch(0.30 0.01 60)', text: 'oklch(0.93 0.025 75)', count: 'oklch(0.60 0.02 60)' },
+              ][i];
+              return (
+                <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
                   <div
-                    className="text-xs"
-                    style={{ color: 'oklch(0.55 0.03 60)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    className="fade-up group p-6 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    style={{
+                      background: palette.bg,
+                      borderRadius: '3px',
+                      transitionDelay: `${(i + 2) * 60}ms`,
+                      minHeight: '140px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
                   >
-                    {cat.count} stays
+                    <div className="text-3xl">{cat.emoji}</div>
+                    <div>
+                      <div
+                        className="text-lg font-bold mb-1"
+                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
+                      >
+                        {cat.label}
+                      </div>
+                      <div
+                        className="text-xs font-semibold uppercase tracking-widest"
+                        style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        {cat.count} stays
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
+
+            {/* Row 3: remaining tiles */}
+            {CATEGORIES.slice(6).map((cat, i) => {
+              const palette = [
+                { bg: 'oklch(0.52 0.08 155)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.80 0.06 155)' },
+                { bg: 'oklch(0.55 0.14 38)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.85 0.10 45)' },
+                { bg: 'oklch(0.88 0.04 75)', text: 'oklch(0.22 0.01 60)', count: 'oklch(0.50 0.03 60)' },
+                { bg: 'oklch(0.38 0.09 155)', text: 'oklch(0.99 0.005 85)', count: 'oklch(0.72 0.12 155)' },
+              ][i % 4];
+              return (
+                <Link key={cat.id} href={`/directory?category=${encodeURIComponent(cat.id)}`}>
+                  <div
+                    className="fade-up group p-6 cursor-pointer transition-all duration-300 hover:brightness-110"
+                    style={{
+                      background: palette.bg,
+                      borderRadius: '3px',
+                      transitionDelay: `${(i + 6) * 60}ms`,
+                      minHeight: '130px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div className="text-2xl">{cat.emoji}</div>
+                    <div>
+                      <div
+                        className="text-base font-bold mb-1"
+                        style={{ fontFamily: 'Fraunces, serif', color: palette.text }}
+                      >
+                        {cat.label}
+                      </div>
+                      <div
+                        className="text-xs font-semibold uppercase tracking-widest"
+                        style={{ color: palette.count, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      >
+                        {cat.count} stays
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -531,34 +621,40 @@ export default function Home() {
       {/* ── MORE STAYS GRID ──────────────────── */}
       <section className="py-20">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 fade-up">
-            <div>
-              <p
-                className="text-xs font-bold uppercase tracking-widest mb-2"
-                style={{ color: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          {/* Ruled editorial header */}
+          <div className="mb-12 fade-up">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="flex-1 h-px" style={{ background: 'oklch(0.88 0.025 75)' }} />
+              <span
+                className="stamp-badge"
+                style={{ color: 'oklch(0.55 0.14 38)', borderColor: 'oklch(0.55 0.14 38)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
                 Keep Exploring
-              </p>
+              </span>
+              <div className="flex-1 h-px" style={{ background: 'oklch(0.88 0.025 75)' }} />
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <h2
-                className="text-4xl md:text-5xl font-bold"
+                className="text-5xl md:text-6xl font-bold"
                 style={{ fontFamily: 'Fraunces, serif', color: 'oklch(0.22 0.01 60)' }}
               >
                 More
                 <span style={{ fontStyle: 'italic', color: 'oklch(0.55 0.14 38)' }}> Wonders</span>
               </h2>
+              <Link href="/directory">
+                <button
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
+                  style={{
+                    borderRadius: '2px',
+                    borderColor: 'oklch(0.55 0.14 38)',
+                    color: 'oklch(0.55 0.14 38)',
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  }}
+                >
+                  Full Directory <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
             </div>
-            <Link href="/directory">
-              <button
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 text-sm font-semibold transition-all hover:bg-[oklch(0.55_0.14_38)] hover:text-[oklch(0.99_0.005_85)] hover:border-[oklch(0.55_0.14_38)]"
-                style={{
-                  borderColor: 'oklch(0.55 0.14 38)',
-                  color: 'oklch(0.55 0.14 38)',
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                }}
-              >
-                Full Directory <ArrowRight className="w-4 h-4" />
-              </button>
-            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -750,8 +846,8 @@ export default function Home() {
             <div className="fade-up relative" style={{ transitionDelay: '150ms' }}>
               <div className="relative h-96">
                 <div
-                  className="absolute top-0 right-0 w-4/5 h-64 rounded-2xl overflow-hidden shadow-xl"
-                  style={{ transform: 'rotate(2deg)' }}
+                  className="absolute top-0 right-0 w-4/5 h-64 overflow-hidden shadow-xl"
+                  style={{ transform: 'rotate(5deg)', borderRadius: '3px' }}
                 >
                   <img
                     src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-dome-fNq53JMSCre9pYDm759BF5.webp"
@@ -760,8 +856,8 @@ export default function Home() {
                   />
                 </div>
                 <div
-                  className="absolute bottom-0 left-0 w-3/5 h-52 rounded-2xl overflow-hidden shadow-xl border-4 border-white"
-                  style={{ transform: 'rotate(-1.5deg)' }}
+                  className="absolute bottom-0 left-0 w-3/5 h-52 overflow-hidden shadow-xl border-[10px] border-white"
+                  style={{ transform: 'rotate(-4deg)', borderRadius: '3px' }}
                 >
                   <img
                     src="https://d2xsxph8kpxj0f.cloudfront.net/86702083/ByQr52J2uJxPcTScSSaduY/hero-houseboat-6e6D3bBeEjwZSSmSxByNAZ.webp"
@@ -769,20 +865,28 @@ export default function Home() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Floating badge */}
+                {/* Floating postmark badge */}
                 <div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 px-4 py-2 rounded-full shadow-lg"
+                  className="absolute top-1/2 left-1/2 z-10 shadow-lg"
                   style={{
-                    background: 'oklch(0.55 0.14 38)',
-                    color: 'oklch(0.99 0.005 85)',
-                    fontFamily: 'Fraunces, serif',
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
-                    transform: 'translate(-50%, -50%) rotate(-8deg)',
+                    transform: 'translate(-50%, -50%) rotate(-10deg)',
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  400+ stays & counting ✦
+                  <span
+                    className="stamp-badge"
+                    style={{
+                      background: 'oklch(0.55 0.14 38)',
+                      color: 'oklch(0.99 0.005 85)',
+                      borderColor: 'oklch(0.72 0.10 40)',
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                      fontSize: '0.7rem',
+                      padding: '6px 14px',
+                      letterSpacing: '0.14em',
+                    }}
+                  >
+                    400+ stays & counting ✦
+                  </span>
                 </div>
               </div>
             </div>
