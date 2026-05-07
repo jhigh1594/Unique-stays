@@ -52,6 +52,7 @@ A `Stay` has a `spokes: SpokeSlug[]` field that determines which spoke pages it 
 | `/directory` | `Directory` |
 | `/about` | `About` |
 | `/submit` | `Submit` |
+| `/design-system` | `DesignSystem` (visual style guide) |
 
 `SpokePage` is a single reusable component that drives its UI entirely from `SPOKES` config + filtered `STAYS`. Adding a new spoke means adding an entry to `SPOKES` and a route in `App.tsx`.
 
@@ -59,17 +60,32 @@ A `Stay` has a `spokes: SpokeSlug[]` field that determines which spoke pages it 
 
 `server/index.ts` is a thin Express wrapper that only serves the Vite-built static files. It has no API routes. In dev, Vite handles everything directly.
 
-## Design System — "The Wanderer's Postcard Collection"
+## Design System — "The Naturalist's Field Catalog"
 
-**Colors** use the oklch color space throughout — inline styles, not Tailwind utilities:
-- Cream background: `oklch(0.975 0.012 85)`
+> **Full spec**: see `DESIGN.md` at the repo root.
+> **Visual style guide**: run the app and visit `/design-system`.
+
+**Colors** use the oklch color space throughout — always as inline `style={{ color: '...' }}`, never Tailwind arbitrary color utilities:
+- Parchment (background): `oklch(0.94 0.022 78)`
 - Terracotta (primary): `oklch(0.55 0.14 38)`
-- Forest green (secondary): `oklch(0.38 0.09 155)`
+- Botanical green (secondary): `oklch(0.40 0.10 148)`
+- Ochre (accent): `oklch(0.68 0.12 68)`
+- Charcoal (text): `oklch(0.22 0.01 60)`
+- Sand (border): `oklch(0.88 0.025 75)`
 - Warm white (cards): `oklch(0.99 0.005 85)`
 
 Each spoke has its own `accentColor` and `accentColorLight` in `SpokeConfig`.
 
-**Fonts**: Fraunces (editorial serif, headlines) + Plus Jakarta Sans (body). Loaded via Google Fonts in `client/index.html`. Applied via inline `style={{ fontFamily: '...' }}`, not Tailwind classes.
+**Fonts** — three families with strict role separation. Loaded via Google Fonts in `client/index.html`. Applied via inline `style={{ fontFamily: '...' }}`, not Tailwind classes:
+- **Bitter** (`'Bitter', Georgia, serif`) — all headings (H1–H6), card titles, price displays, editorial pull quotes
+- **Alegreya** (`'Alegreya', Georgia, serif`) — all body prose: descriptions, subtitles, testimonials, paragraphs
+- **Jost** (`'Jost', system-ui, sans-serif`) — all UI chrome: buttons, badges, labels, filters, navigation, metadata
+
+**Never use** Fraunces or Plus Jakarta Sans — both are removed from this codebase.
+
+**StayCard variants**: `hero` (editor's picks, h-64, full overlay), `highlight` (default, h-52, below-image content), `compact` (directory/spoke grids, h-44, dense metadata). Always pass `variant` explicitly for directory/spoke pages.
+
+**Anti-patterns to avoid**: bounce easing (`cubic-bezier` with y > 1), hero metric stat clusters (400+/48/10), identical card grids, gradient text (`bg-clip-text`), heavy glassmorphism, `rotate()` on card hover.
 
 **Tailwind v4** is used with the `@tailwindcss/vite` plugin. There is no `tailwind.config.js` — tokens are declared in `index.css` using `@theme inline`.
 

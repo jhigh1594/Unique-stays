@@ -24,6 +24,7 @@ import Directory from "./pages/Directory";
 import About from "./pages/About";
 import Submit from "./pages/Submit";
 import SpokePage from "./pages/SpokePage";
+import DesignSystem from "./pages/DesignSystem";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/directory" component={Directory} />
       <Route path="/about" component={About} />
       <Route path="/submit" component={Submit} />
+      <Route path="/design-system" component={DesignSystem} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
