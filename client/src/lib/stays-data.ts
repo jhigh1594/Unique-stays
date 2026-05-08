@@ -1521,7 +1521,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/1910808',
-    image: 'https://media.vrbo.com/lodging/19/1910808/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/49000000/48230000/48225200/48225169/c7291d92.jpg',
     price: 162,
     priceUnit: 'night',
     rating: 4.94,
@@ -1674,7 +1674,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/1131237',
-    image: 'https://media.vrbo.com/lodging/11/1131237/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/27000000/26770000/26770000/26769995/09e9baac.jpg',
     price: 177,
     priceUnit: 'night',
     rating: 4.91,
@@ -2669,7 +2669,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3757192',
-    image: 'https://media.vrbo.com/lodging/37/3757192/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/108000000/107580000/107580000/107579984/23b35659.jpg',
     price: 325,
     priceUnit: 'night',
     rating: 4.95,
@@ -2690,7 +2690,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3605736',
-    image: 'https://media.vrbo.com/lodging/36/3605736/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/115000000/114380000/114377800/114377704/dabaca94.jpg',
     price: 289,
     priceUnit: 'night',
     rating: 4.93,
@@ -2820,7 +2820,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/9872779ha',
-    image: 'https://media.vrbo.com/lodging/98/9872779ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/100000000/99050000/99042000/99041972/52afcc10.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.9,
@@ -3077,7 +3077,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/1278523',
-    image: 'https://media.vrbo.com/lodging/12/1278523/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/93000000/92860000/92858500/92858414/1cc22547.jpg',
     price: 250,
     priceUnit: 'night',
     rating: 4.88,
@@ -3203,7 +3203,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/4038225',
-    image: 'https://media.vrbo.com/lodging/40/4038225/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/106000000/105820000/105814300/105814286/cc5e5616.jpg',
     price: 185,
     priceUnit: 'night',
     rating: 4.88,
@@ -3287,7 +3287,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3635961',
-    image: 'https://media.vrbo.com/lodging/36/3635961/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/114000000/113300000/113291400/113291399/46f00793.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.88,
@@ -3329,7 +3329,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1602932',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1602932/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTYwMjkzMg==/original/1e494105-1f88-4589-a48f-8206577a5b9a.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.87,
@@ -3586,7 +3586,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/2547578',
-    image: 'https://media.vrbo.com/lodging/25/2547578/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/126000000/125550000/125545000/125544943/134b7d4c.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.82,
@@ -3712,7 +3712,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/4643551ha',
-    image: 'https://media.vrbo.com/lodging/46/4643551ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/37000000/36890000/36880700/36880639/c53f4b28.jpg',
     price: 185,
     priceUnit: 'night',
     rating: 4.86,
@@ -3756,7 +3756,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/7468225ha',
-    image: 'https://media.vrbo.com/lodging/74/7468225ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/70000000/69240000/69239700/69239625/32d70ca0.jpg',
     price: 595,
     priceUnit: 'night',
     rating: 4.91,
@@ -3927,7 +3927,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/mount-adams/',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
+    image: 'https://media-cdn.tripadvisor.com/media/photo-s/33/29/05/e6/table-outside-cabin.jpg',
     price: 189,
     priceUnit: 'night',
     rating: 4.8,
@@ -3948,7 +3948,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/big-bear/',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-ontbb-exterior-6-38702:Wide-Hor',
     price: 219,
     priceUnit: 'night',
     rating: 4.8,
@@ -4011,7 +4011,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/piney-woods/',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-tyrpw--jacksonville-postcard-ca-39928:Wide-Hor',
     price: 179,
     priceUnit: 'night',
     rating: 4.8,
@@ -4053,7 +4053,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/hocking-hills/',
-    image: 'https://postcardcabins.com/hocking-hills/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-cmhhh-cabin-exterior-26962:Wide-Hor',
     price: 179,
     priceUnit: 'night',
     rating: 4.8,
@@ -4095,7 +4095,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/708067475095659552',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-708067475095659552/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-708067475095659552/original/f1ed90f2-9870-4c04-bc5b-ed5033b804bc.jpeg',
     price: 325,
     priceUnit: 'night',
     rating: 4.99,
@@ -4116,7 +4116,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/4147470',
-    image: 'https://media.vrbo.com/lodging/41/4147470/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/108000000/107840000/107835300/107835273/2e71633f.jpg',
     price: 225,
     priceUnit: 'night',
     rating: 4.90,
@@ -4137,7 +4137,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/eastern-catskills/',
-    image: 'https://postcardcabins.com/eastern-catskills/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-albec-whitcombe-james---40-16676:Wide-Hor',
     price: 229,
     priceUnit: 'night',
     rating: 4.8,
@@ -4158,7 +4158,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3512584',
-    image: 'https://media.vrbo.com/lodging/35/3512584/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/97000000/96130000/96120800/96120709/2bcd56cb.jpg',
     price: 185,
     priceUnit: 'night',
     rating: 4.86,
@@ -4179,7 +4179,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/4873469ha',
-    image: 'https://media.vrbo.com/lodging/48/4873469ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/105000000/104520000/104518900/104518841/f011c0a4.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.88,
@@ -4200,7 +4200,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/suches/',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-atlco-jacksonville-postcard-cab-15359:Wide-Hor',
     price: 199,
     priceUnit: 'night',
     rating: 4.8,
@@ -4221,7 +4221,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/dale-hollow/',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-bnadl-exterior-193-24522:Wide-Hor',
     price: 199,
     priceUnit: 'night',
     rating: 4.8,
@@ -4242,7 +4242,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/lake-hartwell/',
-    image: 'https://postcardcabins.com/lake-hartwell/placeholder.jpeg', // TODO
+    image: 'https://cache.marriott.com/is/image/marriotts7prod/oc-gsplh-exterior-7-24741:Wide-Hor',
     price: 189,
     priceUnit: 'night',
     rating: 4.8,
@@ -4412,7 +4412,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/836359',
-    image: 'https://media.vrbo.com/lodging/83/836359/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/20000000/19870000/19860300/19860219/90-1dcd6f05.jpg',
     price: 445,
     priceUnit: 'night',
     rating: 4.9,
@@ -4603,7 +4603,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/324679',
-    image: 'https://media.vrbo.com/lodging/32/324679/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/20000000/19560000/19550600/19550584/2125207a.jpg',
     price: 595,
     priceUnit: 'night',
     rating: 4.9,
@@ -4941,7 +4941,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3893239ha',
-    image: 'https://media.vrbo.com/lodging/38/3893239ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/35000000/34080000/34077500/34077479/3daa08d4.jpg',
     price: 495,
     priceUnit: 'night',
     rating: 4.93,
