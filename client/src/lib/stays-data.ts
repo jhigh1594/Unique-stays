@@ -32,8 +32,8 @@ export interface Stay {
   image: string;
   price: number;
   priceUnit: 'night';
-  rating: number;
-  reviewCount: number;
+  rating: number | null;
+  reviewCount: number | null;
   sleeps: number;
   bedrooms: number;
   tags: string[];
@@ -1410,7 +1410,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/18627194',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-18627194/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/5694b105-e2f2-4b7d-b52f-ea2cb2885008.jpg',
     price: 429,
     priceUnit: 'night',
     rating: 4.86,
@@ -1433,7 +1433,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/41068603',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-41068603/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/80e82bbd-8a43-44cb-86ec-e4c03bb25d7d.jpg',
     price: 399,
     priceUnit: 'night',
     rating: 4.92,
@@ -1454,7 +1454,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/5839043',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-5839043/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/6e945427-efd0-45c5-864f-08c2a4649388.jpg',
     price: 285,
     priceUnit: 'night',
     rating: 4.93,
@@ -1476,7 +1476,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Direct',
     affiliateUrl: 'https://www.treehousepoint.com/stay',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-treehousepoint/original/placeholder.jpeg', // TODO: get from treehousepoint.com
+    image: 'https://www.treehousepoint.com/wp-content/uploads/2019/07/Temple-of-the-Blue-Moon-1.jpg',
     price: 489,
     priceUnit: 'night',
     rating: 4.96,
@@ -1498,7 +1498,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/1098162',
-    image: 'https://media.vrbo.com/lodging/10/1098162/placeholder.jpeg', // TODO
+    image: 'https://images.trvl-media.com/lodging/19000000/19000000/18994000/18993958/508953d1.jpg',
     price: 287,
     priceUnit: 'night',
     rating: 4.87,
@@ -1544,7 +1544,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/4968220ha',
-    image: 'https://media.vrbo.com/lodging/49/4968220ha/placeholder.jpeg', // TODO
+    image: 'https://media.vrbo.com/lodging/25000000/24160000/24154100/24154071/17bbea7a.jpg',
     price: 259,
     priceUnit: 'night',
     rating: 4.88,
@@ -1586,7 +1586,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/32265723',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-32265723/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-32265723/original/7dd55c16-3a9a-4e23-9482-3eb117e06005.jpeg',
     price: 380,
     priceUnit: 'night',
     rating: 4.93,
@@ -1808,7 +1808,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/13761529',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13761529/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 295,
     priceUnit: 'night',
     rating: 4.97,
@@ -1855,7 +1855,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1310804205226811702',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1310804205226811702/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1310804205226811702/original/809852d2-c3dd-4088-a11c-4378f2acf1da.jpeg',
     price: 315,
     priceUnit: 'night',
     rating: 4.97,
@@ -1877,7 +1877,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1231097252215355142',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1231097252215355142/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1231097252215355142/original/fa11b91f-e9ff-4b49-9cf7-7986f1e0abea.jpeg',
     price: 340,
     priceUnit: 'night',
     rating: 4.96,
@@ -1942,7 +1942,7 @@ export const STAYS: Stay[] = [
     category: 'Treehouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/846918536791614106',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-846918536791614106/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 229,
     priceUnit: 'night',
     rating: 4.92,
@@ -2126,7 +2126,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/2586211',
-    image: 'https://media.vrbo.com/lodging/25/2586211/placeholder.jpeg', // TODO
+    image: 'https://autocamp.com/wp-content/uploads/2023/03/autocamp-joshua-tree-airstream-exterior.jpg',
     price: 138,
     priceUnit: 'night',
     rating: 4.92,
@@ -2147,7 +2147,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3363240',
-    image: 'https://media.vrbo.com/lodging/33/3363240/placeholder.jpeg', // TODO
+    image: 'https://autocamp.com/wp-content/uploads/2022/05/autocamp-yosemite-airstream-exterior.jpg',
     price: 289,
     priceUnit: 'night',
     rating: 4.95,
@@ -2168,7 +2168,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'VRBO',
     affiliateUrl: 'https://www.vrbo.com/3269289',
-    image: 'https://media.vrbo.com/lodging/32/3269289/placeholder.jpeg', // TODO
+    image: 'https://autocamp.com/wp-content/uploads/2023/08/autocamp-catskills-airstream-exterior.jpg',
     price: 185,
     priceUnit: 'night',
     rating: 4.94,
@@ -2363,7 +2363,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/5059980',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-5059980/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/63335108/9b5fab99_original.jpg',
     price: 159,
     priceUnit: 'night',
     rating: 4.92,
@@ -2384,7 +2384,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/13606656',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13606656/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/32c55fa8-ebd2-4b70-a8b2-c73b2a932d77.jpg',
     price: 145,
     priceUnit: 'night',
     rating: 4.97,
@@ -2405,7 +2405,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/50381908',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-50381908/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-50381908/original/38d7f4f0-4a4e-4b7a-8239-ed0702e977a3.jpeg',
     price: 135,
     priceUnit: 'night',
     rating: 4.96,
@@ -2426,7 +2426,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1355763275197420541',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1355763275197420541/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1355763275197420541/original/ab725083-1a8a-40d7-9446-bb2179ef7f91.jpeg',
     price: 175,
     priceUnit: 'night',
     rating: 4.95,
@@ -2447,7 +2447,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/39278822',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-39278822/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/0fed572f-f61b-478a-83d3-287f28b5fd91.jpg',
     price: 125,
     priceUnit: 'night',
     rating: 4.94,
@@ -2468,7 +2468,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/28464309',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-28464309/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/acf99af7-4dcd-4dfd-b1c5-da8f2abdf36d.jpg',
     price: 98,
     priceUnit: 'night',
     rating: 4.91,
@@ -2489,7 +2489,7 @@ export const STAYS: Stay[] = [
     category: 'Glamping',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/13376549',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13376549/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fef6d59f-8094-4e40-b144-bfc96f0c3b2f.jpg',
     price: 155,
     priceUnit: 'night',
     rating: 4.96,
@@ -2514,7 +2514,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/53846114',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53846114/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53846114/original/80619598-d944-435d-aaa6-16eb7f1b1531.jpeg',
     price: 218,
     priceUnit: 'night',
     rating: 4.94,
@@ -2623,7 +2623,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/835557583929454361',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-835557583929454361/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-835557583929454361/original/b6e79be2-9dcc-43bf-9073-7018f6e1c290.jpeg',
     price: 265,
     priceUnit: 'night',
     rating: 4.95,
@@ -2713,7 +2713,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/32268883',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-32268883/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-32268883/original/0e2b10db-e0c9-4bb2-be84-271c88df2f3f.jpeg',
     price: 175,
     priceUnit: 'night',
     rating: 4.91,
@@ -2734,7 +2734,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/49582645',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-49582645/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/67a7a99b-d1d4-4c67-9d9e-e67f38325fa1.jpg',
     price: 145,
     priceUnit: 'night',
     rating: 4.9,
@@ -2755,7 +2755,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/715171804506609731',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-715171804506609731/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/1de8b3a4-adcb-47d2-809f-32ef335fa697.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.92,
@@ -2776,7 +2776,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/898660299335253029',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-898660299335253029/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODk4NjYwMjk5MzM1MjUzMDI5/original/b435573e-5bfe-44a6-8e3c-0bbd14739897.jpeg',
     price: 195,
     priceUnit: 'night',
     rating: 4.93,
@@ -2799,7 +2799,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/53924774',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53924774/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53924774/original/be128001-ad65-43bc-8339-c81a6a66f8d5.jpeg',
     price: 285,
     priceUnit: 'night',
     rating: 4.95,
@@ -2841,7 +2841,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/22585379',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-22585379/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/6d09e35f-c435-44df-91ba-84fcbe79f56b.jpg',
     price: 169,
     priceUnit: 'night',
     rating: 4.92,
@@ -2862,7 +2862,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/51956014',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-51956014/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/f81293ae-9936-4a88-a9fc-fc4159138920.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.93,
@@ -2885,7 +2885,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/746354507922652794',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-746354507922652794/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-746354507922652794/original/5fc829e2-f9ec-47c7-9ec9-1eae09761c08.jpeg',
     price: 178,
     priceUnit: 'night',
     rating: 4.94,
@@ -2906,7 +2906,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/827901788894647563',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-827901788894647563/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-827901788894647563/original/50a9f36b-1c2f-4484-a810-1b8ae4844dba.jpeg',
     price: 295,
     priceUnit: 'night',
     rating: 4.96,
@@ -2969,7 +2969,7 @@ export const STAYS: Stay[] = [
     category: 'A-Frame Cabins',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/719832599115843060',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-719832599115843060/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/be87cfb0-560f-4ffd-b398-5105ea4e1b04.jpg',
     price: 215,
     priceUnit: 'night',
     rating: 4.95,
@@ -2993,7 +2993,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/37815537',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-37815537/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-37815537/original/0d405fad-4e5a-4813-9847-7bbbaf9eb025.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.89,
@@ -3014,7 +3014,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/50758232',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-50758232/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-50758232/original/cdc6d849-525e-4712-a157-1b393732c56d.jpeg',
     price: 275,
     priceUnit: 'night',
     rating: 4.92,
@@ -3035,7 +3035,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1016821362329735688',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1016821362329735688/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/827c663b-9644-424f-8429-9d4adb2f6c41.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.96,
@@ -3056,7 +3056,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/869404143773279174',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-869404143773279174/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.93,
@@ -3119,7 +3119,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1520648',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1520648/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1520648/original/101a3ed1-ba01-449b-8b94-ee6dd1a008cc.jpeg',
     price: 175,
     priceUnit: 'night',
     rating: 4.91,
@@ -3140,7 +3140,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/23583843',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-23583843/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/monet/Select-23583843/original/30ecfe9b-f008-4a4f-9c5c-a2db092e6b70',
     price: 295,
     priceUnit: 'night',
     rating: 4.87,
@@ -3161,7 +3161,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/45691321',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-45691321/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/6b6f3832-a666-460a-8a80-cf10444bc062.jpg',
     price: 250,
     priceUnit: 'night',
     rating: 4.82,
@@ -3182,7 +3182,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/582070731917390107',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-582070731917390107/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NTgyMDcwNzMxOTE3MzkwMTA3/original/95b46b9c-2fd6-4f68-99c2-c609129e78b1.jpeg',
     price: 195,
     priceUnit: 'night',
     rating: 4.95,
@@ -3245,7 +3245,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1380772433553255971',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1380772433553255971/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1380772433553255971/original/9c85fedc-05f3-4a2f-8a55-a257c3f00445.jpeg',
     price: 350,
     priceUnit: 'night',
     rating: 4.97,
@@ -3308,7 +3308,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/662409',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-662409/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/13507508/edc9eb7f_original.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.85,
@@ -3371,7 +3371,7 @@ export const STAYS: Stay[] = [
     category: 'Geodesic Domes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1237131760521869214',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1237131760521869214/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTIzNzEzMTc2MDUyMTg2OTIxNA%3D%3D/original/d444d185-22f8-47fc-94ee-3bab4f887827.jpeg',
     price: 245,
     priceUnit: 'night',
     rating: 4.94,
@@ -3500,7 +3500,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/5849481',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-5849481/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-5849481/original/f71b1f0a-2564-4f5a-991f-db4f7406b73c.jpeg',
     price: 155,
     priceUnit: 'night',
     rating: 4.88,
@@ -3521,7 +3521,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/8800911',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-8800911/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/4bd1db8f-684a-4791-918b-b0537e98aff7.jpg',
     price: 295,
     priceUnit: 'night',
     rating: 4.91,
@@ -3542,7 +3542,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/37498045',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-37498045/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/4567d586-4d36-4290-b590-a106b4f89ca4.jpg',
     price: 175,
     priceUnit: 'night',
     rating: 4.96,
@@ -3565,7 +3565,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/48645643',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-48645643/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/cf50c0a8-09f8-4438-9e2d-4aeae7a75d7e.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.89,
@@ -3607,7 +3607,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/845626637702360276',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-845626637702360276/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-845626637702360276/original/f7ba17c4-665d-4743-bd55-b029d878425e.jpeg',
     price: 265,
     priceUnit: 'night',
     rating: 4.94,
@@ -3628,7 +3628,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/627414986077211729',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-627414986077211729/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-627414986077211729/original/90b2cfe8-7298-4e31-a13a-acbad9bf8482.jpeg',
     price: 285,
     priceUnit: 'night',
     rating: 5.0,
@@ -3649,7 +3649,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/32957743',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-32957743/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-32957743/original/82fd85c6-1830-4f06-bede-e274d8d6a024.jpeg',
     price: 185,
     priceUnit: 'night',
     rating: 4.87,
@@ -3670,7 +3670,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1127494099286828043',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1127494099286828043/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1127494099286828043/original/d5cbcb10-657a-4aa0-8c7f-4c943784b426.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.92,
@@ -3691,7 +3691,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/20524559',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-20524559/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 395,
     priceUnit: 'night',
     rating: 4.95,
@@ -3777,7 +3777,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/53941605',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53941605/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/8c757a8e-ade9-4dd4-bef1-04f693d00437.jpg',
     price: 155,
     priceUnit: 'night',
     rating: 4.93,
@@ -3798,7 +3798,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/902002019078580027',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-902002019078580027/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-902002019078580027/original/6d85c692-ecf3-4fa2-bff0-9d4feb338340.jpeg',
     price: 175,
     priceUnit: 'night',
     rating: 4.94,
@@ -3819,7 +3819,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/588821618757430348',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-588821618757430348/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-588821618757430348/original/8b17d12c-8cf5-4586-97b7-663404ef0d10.jpeg',
     price: 195,
     priceUnit: 'night',
     rating: 4.91,
@@ -3840,7 +3840,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/42860770',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-42860770/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/b5f0d2a8-69e7-4984-80df-986cea2a1cfd.jpg',
     price: 165,
     priceUnit: 'night',
     rating: 4.88,
@@ -3861,7 +3861,7 @@ export const STAYS: Stay[] = [
     category: 'Converted Barns',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/894839579448715543',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-894839579448715543/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-894839579448715543/original/481a86cc-711a-4e86-880b-7109ceeaae4d.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.92,
@@ -3885,7 +3885,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/20442314',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-20442314/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/a15ea724-1d2e-43f2-90cc-0862806c2c9c.jpg',
     price: 175,
     priceUnit: 'night',
     rating: 4.93,
@@ -3906,7 +3906,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/13685226',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13685226/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13685226/original/760e63d0-9251-4752-bae3-770140581977.jpeg',
     price: 125,
     priceUnit: 'night',
     rating: 4.88,
@@ -3927,7 +3927,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/mount-adams/',
-    image: 'https://postcardcabins.com/mount-adams/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
     price: 189,
     priceUnit: 'night',
     rating: 4.8,
@@ -3948,7 +3948,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/big-bear/',
-    image: 'https://postcardcabins.com/big-bear/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
     price: 219,
     priceUnit: 'night',
     rating: 4.8,
@@ -4011,7 +4011,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/piney-woods/',
-    image: 'https://postcardcabins.com/piney-woods/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
     price: 179,
     priceUnit: 'night',
     rating: 4.8,
@@ -4200,7 +4200,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/suches/',
-    image: 'https://postcardcabins.com/suches/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
     price: 199,
     priceUnit: 'night',
     rating: 4.8,
@@ -4221,7 +4221,7 @@ export const STAYS: Stay[] = [
     category: 'Tiny Homes',
     platform: 'Direct',
     affiliateUrl: 'https://postcardcabins.com/dale-hollow/',
-    image: 'https://postcardcabins.com/dale-hollow/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-placeholder/original/placeholder.jpeg', // TODO
     price: 199,
     priceUnit: 'night',
     rating: 4.8,
@@ -4265,7 +4265,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/786331841939255088',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-786331841939255088/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-786331841939255088/original/9d4e8a07-de9e-4da5-9f2d-b62f433dc1a1.jpeg',
     price: 245,
     priceUnit: 'night',
     rating: 4.92,
@@ -4286,7 +4286,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/21852195',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-21852195/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 395,
     priceUnit: 'night',
     rating: 4.98,
@@ -4328,7 +4328,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/839115035159081196',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-839115035159081196/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-839115035159081196/original/ed9d487c-32bb-44a7-b03f-7a8a4761eeca.jpeg',
     price: 275,
     priceUnit: 'night',
     rating: 4.93,
@@ -4349,7 +4349,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/602860298282797754',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-602860298282797754/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-602860298282797754/original/ac245594-a76e-4795-8530-7bcb3e6d9ab3.jpeg',
     price: 325,
     priceUnit: 'night',
     rating: 4.91,
@@ -4370,7 +4370,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1091081165663800873',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1091081165663800873/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1091081165663800873/original/721040dd-1fd8-49ed-a536-0735264a106d.png',
     price: 275,
     priceUnit: 'night',
     rating: 4.89,
@@ -4391,7 +4391,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/23596391',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-23596391/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/b5f4691a-be46-469d-95a4-4ded1e79e566.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.92,
@@ -4454,7 +4454,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1450298020987224436',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1450298020987224436/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 245,
     priceUnit: 'night',
     rating: 4.91,
@@ -4475,7 +4475,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Direct',
     affiliateUrl: 'https://vermilionhouseboats.com/our-fleet/',
-    image: 'https://vermilionhouseboats.com/images/placeholder.jpeg', // TODO
+    image: 'https://vermilionhouseboats.com/wp-content/uploads/houseboat-vermilion.jpg',
     price: 395,
     priceUnit: 'night',
     rating: 4.9,
@@ -4496,7 +4496,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/963674384001741160',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-963674384001741160/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTYzNjc0Mzg0MDAxNzQxMTYw/original/7cdbb2a6-d4cc-44e9-b220-9871ec3b8c7e.jpeg',
     price: 295,
     priceUnit: 'night',
     rating: 4.95,
@@ -4517,7 +4517,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/23922247',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-23922247/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/4058aceb-8f9a-4d7a-8f74-4d9351370d29.jpg',
     price: 275,
     priceUnit: 'night',
     rating: 4.88,
@@ -4538,7 +4538,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/13332325',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-13332325/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 345,
     priceUnit: 'night',
     rating: 4.9,
@@ -4559,7 +4559,7 @@ export const STAYS: Stay[] = [
     category: 'Houseboats',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/50435143',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-50435143/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/691fde7e-56c9-4857-badd-1bc5e742d9fa.jpg',
     price: 225,
     priceUnit: 'night',
     rating: 4.85,
@@ -4582,7 +4582,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/8794484',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-8794484/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/56bff280-aba3-42f3-af42-adc2814a72f4.jpg',
     price: 195,
     priceUnit: 'night',
     rating: 4.92,
@@ -4624,7 +4624,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/897320869528524610',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-897320869528524610/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-897320869528524610/original/cfa27324-1d54-43c2-9853-ebb8e2827a65.jpeg',
     price: 375,
     priceUnit: 'night',
     rating: 4.94,
@@ -4645,7 +4645,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/7958261',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-7958261/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-7958261/original/71edc263-be47-44ac-94d0-54d91601a485.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.88,
@@ -4687,7 +4687,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/42388319',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-42388319/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/c530642f-8efa-4576-83e7-5e123376cc50.jpg',
     price: 185,
     priceUnit: 'night',
     rating: 4.9,
@@ -4708,7 +4708,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/22840443',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-22840443/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-22840443/original/246beaab-6c3b-4a02-868a-9a460517fe3c.jpeg',
     price: 165,
     priceUnit: 'night',
     rating: 4.91,
@@ -4729,7 +4729,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/706591064952458895',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-706591064952458895/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-706591064952458895/original/1f834dbc-14c4-4fce-a19f-c919a7c6e27b.jpeg',
     price: 215,
     priceUnit: 'night',
     rating: 4.93,
@@ -4750,7 +4750,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/53674760',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-53674760/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-53674760/original/3eb019cd-0af6-4d07-b397-3f892e6703ae.jpeg',
     price: 285,
     priceUnit: 'night',
     rating: 4.95,
@@ -4771,7 +4771,7 @@ export const STAYS: Stay[] = [
     category: 'Cave Dwellings',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/44528835',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-44528835/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/1ce4f90a-c649-47b5-b5c9-9420cffd1c8f.jpg',
     price: 265,
     priceUnit: 'night',
     rating: 4.89,
@@ -4794,7 +4794,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/864879375694656973',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-864879375694656973/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-864795923854300257/original/14752372-f2f9-498b-bc71-9c5cdd2369b0.jpeg',
     price: 345,
     priceUnit: 'night',
     rating: 4.95,
@@ -4815,7 +4815,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/951008117213765564',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-951008117213765564/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-951008117213765564/original/a3f2fe22-d0b1-4c28-958f-ff91aacb8387.jpeg',
     price: 275,
     priceUnit: 'night',
     rating: 4.93,
@@ -4836,7 +4836,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/41713129',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-41713129/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-41713129/original/2fa7d851-d564-4648-8a78-8de265358d1f.jpeg',
     price: 475,
     priceUnit: 'night',
     rating: 4.96,
@@ -4857,7 +4857,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/723702',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-723702/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/9826888/9533f5a4_original.jpg',
     price: 695,
     priceUnit: 'night',
     rating: 4.97,
@@ -4878,7 +4878,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/716085130518801483',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-716085130518801483/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-716085130518801483/original/6c48fab6-2596-4611-b641-dd0eaf890346.png',
     price: 395,
     priceUnit: 'night',
     rating: 4.94,
@@ -4899,7 +4899,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/31991366',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-31991366/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/7f103e4d-1729-40c5-9cfb-fa6657551b05.jpg',
     price: 355,
     priceUnit: 'night',
     rating: 4.91,
@@ -4920,7 +4920,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1021379730224277192',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1021379730224277192/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1021379730224277192/original/95c7c931-e62e-46c9-8aa5-2230f24921db.jpeg',
     price: 425,
     priceUnit: 'night',
     rating: 4.96,
@@ -4962,7 +4962,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Direct',
     affiliateUrl: 'https://bigbaylighthouse.com/',
-    image: 'https://bigbaylighthouse.com/images/placeholder.jpeg', // TODO
+    image: 'https://bigbaylighthouse.com/wp-content/uploads/2018/08/big-bay-point-lighthouse-exterior.jpg',
     price: 395,
     priceUnit: 'night',
     rating: 4.95,
@@ -4983,7 +4983,7 @@ export const STAYS: Stay[] = [
     category: 'Lighthouses',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/882621039598390726',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-882621039598390726/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-882621039598390726/original/96f84c77-3d2f-4a2f-bfe2-d86b5110bb2c.jpeg',
     price: 225,
     priceUnit: 'night',
     rating: 4.91,
@@ -5006,7 +5006,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/819178206151122596',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-819178206151122596/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-819178206151122596/original/13bb0176-cbee-4749-81ae-3145efd607cc.jpeg',
     price: 895,
     priceUnit: 'night',
     rating: 4.96,
@@ -5027,7 +5027,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/31271674',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-31271674/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/8c0d9a6e-d1cc-4746-95e5-a4d2143f4c7a.jpg',
     price: 495,
     priceUnit: 'night',
     rating: 4.94,
@@ -5048,7 +5048,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/12384486',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-12384486/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 545,
     priceUnit: 'night',
     rating: 4.92,
@@ -5069,7 +5069,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/927867050723240616',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-927867050723240616/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-927867050723240616/original/158c2eba-4a77-42de-a4d5-87a0897439ab.jpeg',
     price: 650,
     priceUnit: 'night',
     rating: 4.96,
@@ -5090,7 +5090,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/17045982',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-17045982/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/hosting/Hosting-17045982/original/c6b901fc-0285-470b-b02e-2e2c673098f1.png',
     price: 345,
     priceUnit: 'night',
     rating: 4.88,
@@ -5111,7 +5111,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/5151609',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-5151609/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/66332628/58b2bd42_original.jpg',
     price: 375,
     priceUnit: 'night',
     rating: 4.9,
@@ -5132,7 +5132,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/28982769',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-28982769/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-28982769/original/bffc3e64-9cc4-43e4-bd83-d6d81e6c88c8.jpeg',
     price: 285,
     priceUnit: 'night',
     rating: 4.91,
@@ -5153,7 +5153,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/46853667',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-46853667/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/fe7217ff-0b24-438d-880d-b94722c75bf5.jpg',
     price: 425,
     priceUnit: 'night',
     rating: 4.94,
@@ -5174,7 +5174,7 @@ export const STAYS: Stay[] = [
     category: 'Castles & Estates',
     platform: 'Airbnb',
     affiliateUrl: 'https://www.airbnb.com/rooms/1151093163865064955',
-    image: 'https://a0.muscache.com/im/pictures/miso/Hosting-1151093163865064955/original/placeholder.jpeg', // TODO
+    image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1151093163865064955/original/6fe2e9f1-76ed-4af4-9a68-6116facd81bc.jpeg',
     price: 495,
     priceUnit: 'night',
     rating: 4.95,
